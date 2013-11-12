@@ -4,6 +4,13 @@
     <string name="app_name">GlucoPro</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="manual_glucose_level_hint">Manually enter value</string>
+    
+    <string name="test_title">Submit Glucose Levels</string>
+    <string name="test_read_from_meter">Load from GlucoHealth Meter</string>
+    <string name="test_manual_glucose_level_hint">Manually enter value</string>
+    <string name="test_manual_submit">Manual Submission</string>
+    
+    <string name="recommendation_default_text">We recommend a dose of 47.</string>
+    <string name="recommendation_acknowledge">OK</string>
 
 </resources>

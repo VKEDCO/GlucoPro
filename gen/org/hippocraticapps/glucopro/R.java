@@ -27,15 +27,18 @@ public final class R {
         public static final int test_wallpaper=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f080004;
-        public static final int button1=0x7f080002;
-        public static final int button2=0x7f080003;
-        public static final int editText1=0x7f080001;
-        public static final int textView1=0x7f080000;
+        public static final int action_settings=0x7f080006;
+        public static final int button1=0x7f080001;
+        public static final int glucoHealthLoad=0x7f080004;
+        public static final int manualTestSubmit=0x7f080005;
+        public static final int recommendationText=0x7f080000;
+        public static final int testManualInput=0x7f080003;
+        public static final int testTitle=0x7f080002;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int activity_test=0x7f030001;
+        public static final int activity_recommendation=0x7f030001;
+        public static final int activity_test=0x7f030002;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -44,7 +47,12 @@ public final class R {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int hello_world=0x7f050002;
-        public static final int manual_glucose_level_hint=0x7f050003;
+        public static final int recommendation_acknowledge=0x7f050008;
+        public static final int recommendation_default_text=0x7f050007;
+        public static final int test_manual_glucose_level_hint=0x7f050005;
+        public static final int test_manual_submit=0x7f050006;
+        public static final int test_read_from_meter=0x7f050004;
+        public static final int test_title=0x7f050003;
     }
     public static final class style {
         /** 

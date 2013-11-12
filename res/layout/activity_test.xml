@@ -10,50 +10,43 @@
     tools:context=".Main" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/testTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:text="Submit Glucose Levels"
+        android:text="@string/test_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/testManualInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
+        android:layout_below="@+id/glucoHealthLoad"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="108dp"
         android:ems="10"
-        android:hint="@string/manual_glucose_level_hint"
-        android:inputType="number"
-        android:numeric="integer" >
-
-        <requestFocus />
-
-        <requestFocus />
-
-    </EditText>
-
+        android:hint="@string/test_manual_glucose_level_hint"
+        android:inputType="number" />
+    
     <Button
-        android:id="@+id/button2"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
-        android:layout_centerHorizontal="true"
-        android:text="Manual Submission" />
-
-    <Button
-        android:id="@+id/button1"
+        android:id="@+id/glucoHealthLoad"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/testTitle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="41dp"
         android:background="@drawable/blue_gradient"
-        android:text="Load from GlucoHealth Meter" />
+        android:text="@string/test_read_from_meter" />
+
+    <Button
+        android:id="@+id/manualTestSubmit"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/testManualInput"
+        android:layout_centerHorizontal="true"
+        android:text="@string/test_manual_submit" />
 
 </RelativeLayout>
