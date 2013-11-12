@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+	<string name="recommendation_default_text">We recommend a dose of 47.</string>
+    <string name="recommendation_acknowledge">OK</string>
+
+</resources>

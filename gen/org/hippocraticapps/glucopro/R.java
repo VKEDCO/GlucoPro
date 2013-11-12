@@ -11,8 +11,7 @@ public final class R {
     public static final class attr {
     }
     public static final class dimen {
-        /**  Default screen margins, per the Android Design guidelines. 
-
+        /** 
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
@@ -46,27 +45,18 @@ public final class R {
         public static final int main=0x7f070000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050001;
-        public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050002;
-        public static final int recommendation_acknowledge=0x7f050008;
-        public static final int recommendation_default_text=0x7f050007;
-        public static final int test_manual_glucose_level_hint=0x7f050005;
-        public static final int test_manual_submit=0x7f050006;
-        public static final int test_read_from_meter=0x7f050004;
-        public static final int test_title=0x7f050003;
+        public static final int action_settings=0x7f060001;
+        public static final int app_name=0x7f060000;
+        public static final int hello_world=0x7f060002;
+        public static final int recommendation_acknowledge=0x7f060004;
+        public static final int recommendation_default_text=0x7f060003;
+        public static final int test_manual_glucose_level_hint=0x7f060007;
+        public static final int test_manual_submit=0x7f060008;
+        public static final int test_read_from_meter=0x7f060006;
+        public static final int test_title=0x7f060005;
     }
     public static final class style {
         /** 
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
-
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     
@@ -78,10 +68,7 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
-        /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
-         */
-        public static final int AppTheme=0x7f060001;
+        public static final int AppBaseTheme=0x7f050000;
+        public static final int AppTheme=0x7f050001;
     }
 }

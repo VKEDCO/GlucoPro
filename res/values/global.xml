@@ -1,0 +1,12 @@
+<resources>
+	
+    <style name="AppBaseTheme" parent="android:Theme.Light"/>
+    <style name="AppTheme" parent="AppBaseTheme"/>
+        
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    <string name="app_name">GlucoPro</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
