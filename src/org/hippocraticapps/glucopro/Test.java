@@ -12,13 +12,4 @@ public class Test extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.test);
 	}
-
-
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 }

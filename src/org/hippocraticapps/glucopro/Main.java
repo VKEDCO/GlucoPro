@@ -13,13 +13,4 @@ public class Main extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 	}
-
-
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 }

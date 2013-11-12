@@ -12,13 +12,4 @@ public class Recommend extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recommendation);
 	}
-
-
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 }
