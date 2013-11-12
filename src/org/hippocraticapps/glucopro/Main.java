@@ -7,7 +7,6 @@ import android.view.Menu;
 
 public class Main extends Activity
 {
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -24,5 +23,4 @@ public class Main extends Activity
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
 }

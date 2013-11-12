@@ -4,5 +4,6 @@
     <string name="app_name">GlucoPro</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="manual_glucose_level_hint">Manually enter value</string>
 
 </resources>
