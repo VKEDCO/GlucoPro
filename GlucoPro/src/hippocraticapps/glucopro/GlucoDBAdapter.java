@@ -53,10 +53,10 @@ public class GlucoDBAdapter {
 	
 	// ********** meal_data table constants ******************
 	// constants for meal_data table column names
-	public static final String MEAL_ID_COL_NAME      = "id";
-	public static final String MEAL_SHIFT_COL_NAME   = "ShiftId";
-	public static final String MEAL_CARB_COL_NAME 	= "CarbIntake";
-	public static final String MEAL_TIME_COL_NAME	= "Time";
+	public static final String MEAL_ID_COL_NAME      	= "id";
+	public static final String MEAL_SHIFT_COL_NAME   	= "ShiftId";
+	public static final String MEAL_CARB_COL_NAME 		= "CarbIntake";
+	public static final String MEAL_TIME_COL_NAME		= "Time";
 	
 	// constants for meal_data table column numbers
 	public static final int MEAL_ID_COL_NUM         	= 0;
