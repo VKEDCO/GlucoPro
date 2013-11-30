@@ -20,6 +20,7 @@ public class GlucoDBAdapter {
 	public static final String BLOOD_SUGAR_TABLE   		= "blood_sugar_table";
 	public static final String INSULIN_CORRECTION_TABLE = "insulin_correction_table";
 	public static final String MEAL_DATA_TABLE			= "meal_data_table";
+	
 
 	// ********** blood_sugar table constants ******************
 	// constants for blood_sugar table column names
@@ -28,6 +29,13 @@ public class GlucoDBAdapter {
 	public static final String SUGAR_PRE_POST_COL_NAME 	= "PrePost";
 	public static final String SUGAR_LEVEL_COL_NAME		= "Level";
 	public static final String SUGAR_TIME_COL_NAME		= "Time";
+	public static final String[] INSULIN_COL            = new String[]{
+																SUGAR_ID_COL_NAME,
+																SUGAR_SHIFT_COL_NAME,
+																SUGAR_PRE_POST_COL_NAME,
+																SUGAR_LEVEL_COL_NAME,
+																SUGAR_TIME_COL_NAME
+																};
 	
 	// constants for blood_sugar table column numbers
 	public static final int SUGAR_ID_COL_NUM         	= 0;
@@ -79,19 +87,19 @@ public class GlucoDBAdapter {
 				"create table " + BLOOD_SUGAR_TABLE + 
 				" (" + 
 				SUGAR_ID_COL_NAME         	+ " integer primary key autoincrement, " + 
-				SUGAR_SHIFT_COL_NAME      	+ " text not null, " + 
-				SUGAR_PRE_POST_COL_NAME    	+ " text not null, " +
-				SUGAR_LEVEL_COL_NAME 		+ " blob not null " + 
-				SUGAR_TIME_COL_NAME 		+ " blob not null " + 
+				SUGAR_SHIFT_COL_NAME      	+ " integer not null, " + 
+				SUGAR_PRE_POST_COL_NAME    	+ " integer not null, " +
+				SUGAR_LEVEL_COL_NAME 		+ " float not null, " + 
+				SUGAR_TIME_COL_NAME 		+ " bigint not null " + 
 				");";
 		
 		static final String INSULIN_CORRECTION_CREATE =
 				"create table " + INSULIN_CORRECTION_TABLE + 
 				" (" + 
 				CORRECT_ID_COL_NAME         + " integer primary key autoincrement, " + 
-				CORRECT_SHIFT_COL_NAME      + " text not null, " + 
+				CORRECT_SHIFT_COL_NAME      + " integer not null, " + 
 				CORRECT_DOSE_COL_NAME    	+ " text not null, " +
-				CORRECT_TIME_COL_NAME 		+ " blob not null " + 
+				CORRECT_TIME_COL_NAME 		+ " blob not null, " + 
 				CORRECT_FAST_COL_NAME 		+ " blob not null " + 
 				");";
 		
@@ -108,8 +116,11 @@ public class GlucoDBAdapter {
 		public void onCreate(SQLiteDatabase db) {
 			Log.d(HELPER_LOGTAG, SUGAR_TABLE_CREATE);
 			db.execSQL(SUGAR_TABLE_CREATE);
+			
 			db.execSQL(INSULIN_CORRECTION_CREATE);
-			db.execSQL(MEAL_DATA_CREATE);
+			
+			//db.execSQL(MEAL_DATA_CREATE);
+			Log.d(ADPTR_LOGTAG,"Insulin Table Created");
 		}
 
 		@Override
@@ -157,4 +168,45 @@ public class GlucoDBAdapter {
 	/*
 	 * Insert your static queries here.
 	 */
+	
+	public void insertSugarEntry(SugarRecord r){
+		String insertString = 	"INSERT INTO "+BLOOD_SUGAR_TABLE+
+								" VALUES ( null, "+r.shiftID+", "+r.pre+", "+r.level+", "+r.time+")";
+		SQLiteDatabase db = this.getReadableDatabase();
+		db.execSQL(insertString);
+		return;
+	}
+	
+	public SugarRecord[] getNSugarEntries(Integer n){
+		//String SugarRecordQuery = "SELECT * FROM "+BLOOD_SUGAR_TABLE+" WHERE 1 LIMIT "+n;
+		SQLiteDatabase db = this.getReadableDatabase();
+		SugarRecord[] nEntries = new SugarRecord[n];
+		
+		Log.d(ADPTR_LOGTAG, "SUGAR RECORD QUERY OPEN");
+		Cursor crsr = db.query(BLOOD_SUGAR_TABLE, INSULIN_COL, null, null, null, null, n.toString());
+		
+		if ( crsr.getCount() != 0 ) {
+			crsr.moveToFirst();
+			int i = 0;
+			while ( crsr.isAfterLast() == false ) {
+				int id = crsr.getInt(crsr.getColumnIndex(SUGAR_ID_COL_NAME));
+				int shiftID = crsr.getInt(crsr.getColumnIndex(CORRECT_SHIFT_COL_NAME));
+				int pre = crsr.getInt(crsr.getColumnIndex(SUGAR_PRE_POST_COL_NAME));
+				float level = crsr.getFloat(crsr.getColumnIndex(SUGAR_LEVEL_COL_NAME));
+				long time = crsr.getLong(crsr.getColumnIndex(SUGAR_TIME_COL_NAME));
+				Log.d("ARRAY", "Inserted Sugar Record");
+				
+				
+				nEntries[i] = new SugarRecord( id, shiftID, pre, level, time ); // Insert the result into the slot of the array
+				
+				// NEXT!
+				crsr.moveToNext();
+				i++;
+			}
+		}
+		crsr.close();
+		
+		return nEntries;
+	}
+	
 }

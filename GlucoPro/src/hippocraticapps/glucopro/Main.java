@@ -2,14 +2,25 @@ package hippocraticapps.glucopro;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
 import android.view.Menu;
 
 public class Main extends Activity {
-
+	SugarTable sTable = new SugarTable();
+	GlucoDBAdapter adptr = new GlucoDBAdapter(this);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		SugarRecord test = new SugarRecord(0,1,0,(float)120.2,12345678);
+		sTable.insert(adptr, test);
+		SugarRecord[] sr = sTable.peekRange(adptr, 1);
+		
+		for(SugarRecord r: sr){
+			Log.d("SugarRecord: ", "id="+r.id);
+		}
 	}
 
 	@Override

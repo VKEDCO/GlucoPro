@@ -6,7 +6,7 @@ public class SugarRecord extends Record{
 	// static storage vars
 	public int id;
 	public int shiftID;
-	public boolean pre;
+	public int pre;
 	public float level;
 	public long  time;
 	
@@ -17,7 +17,7 @@ public class SugarRecord extends Record{
 		return time.toString();
 	}
 	
-	public SugarRecord( int id, int shiftID, boolean pre, float level, long time ){
+	public SugarRecord( int id, int shiftID, int pre, float level, long time ){
 		// set values
 		this.id = id;
 		this.shiftID = shiftID;
