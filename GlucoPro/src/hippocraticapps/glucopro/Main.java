@@ -16,7 +16,11 @@ public class Main extends Activity {
 		setContentView(R.layout.main);
 		SugarRecord test = new SugarRecord(0,1,0,(float)120.2,12345678);
 		sTable.insert(adptr, test);
-		SugarRecord[] sr = sTable.peekRange(adptr, 1);
+		test = new SugarRecord(1,1,0,(float)120.2,12345678);
+		sTable.insert(adptr, test);
+		test = new SugarRecord(2,1,0,(float)120.2,12345678);
+		sTable.insert(adptr, test);
+		SugarRecord[] sr = sTable.peekRange(adptr, 3);
 		
 		for(SugarRecord r: sr){
 			Log.d("SugarRecord: ", "id="+r.id);

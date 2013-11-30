@@ -119,7 +119,7 @@ public class GlucoDBAdapter {
 			
 			db.execSQL(INSULIN_CORRECTION_CREATE);
 			
-			//db.execSQL(MEAL_DATA_CREATE);
+			//db.execSQL(MEAL_DATA_CREATE); We won't need this information until later.
 			Log.d(ADPTR_LOGTAG,"Insulin Table Created");
 		}
 
@@ -188,7 +188,7 @@ public class GlucoDBAdapter {
 		if ( crsr.getCount() != 0 ) {
 			crsr.moveToFirst();
 			int i = 0;
-			while ( crsr.isAfterLast() == false ) {
+			while ( crsr.isAfterLast() == false && i < n) {
 				int id = crsr.getInt(crsr.getColumnIndex(SUGAR_ID_COL_NAME));
 				int shiftID = crsr.getInt(crsr.getColumnIndex(CORRECT_SHIFT_COL_NAME));
 				int pre = crsr.getInt(crsr.getColumnIndex(SUGAR_PRE_POST_COL_NAME));
