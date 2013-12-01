@@ -1,19 +1,26 @@
 package hippocraticapps.glucopro.activities;
+import java.util.ArrayList;
+import java.util.HashMap;
 import hippocraticapps.glucopro.R;
 import hippocraticapps.glucopro.adapters.ImageAdapter;
+import hippocraticapps.glucopro.adapters.LabeledImage;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Main extends Activity
 {
-	GridView gridView;
+	private GridView gridView;
+	private ArrayList<LabeledImage> gridItems;
 	
 	
 	@Override
@@ -21,19 +28,33 @@ public class Main extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
+		final Main thisActivity = this;
+		
+		gridItems = new ArrayList<LabeledImage>();
+		gridItems.add(new LabeledImage("Test", 			   R.drawable.glucohealth_connect, Test.class));
+		gridItems.add(new LabeledImage("Graphs 'n Charts", R.drawable.graphs_and_charts,   Charts.class));
+		gridItems.add(new LabeledImage("Information",      R.drawable.information, 		   UserInformation.class));
+		gridItems.add(new LabeledImage("Settings",         R.drawable.gear_settings,	   Settings.class));
+		
 		gridView = (GridView)findViewById(R.id.mainGridView);
-
-		gridView.setAdapter(new ImageAdapter(getApplicationContext()));
-
+		gridView.setAdapter(new ImageAdapter(getApplicationContext(), gridItems));
 		gridView.setOnItemClickListener(new OnItemClickListener()
 		{
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id)
 			{
-				//Toast.makeText(
-				//   getApplicationContext(),
-				//   ((TextView) v.findViewById(R.id.grid_item_label))
-				//   .getText(), Toast.LENGTH_SHORT).show();
+				String label = ((TextView)v.findViewById(R.id.gridItemLabel)).getText().toString();
+				Log.i("NEW ACTIVITY", label);
+				LabeledImage labeledImage = null;
+				for (int j = 0; j < gridItems.size(); j++)
+					if (gridItems.get(j).getLabel().equals(label))
+						labeledImage = gridItems.get(j);
+				
+				if (labeledImage == null)
+					throw new IllegalStateException("Not supposed to be null!");
+				
+				Intent intent = new Intent();
+	            intent.setClass(thisActivity, labeledImage.getActivity());
+	            startActivity(intent);
 			}
 		});
 	}

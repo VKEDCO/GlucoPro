@@ -1,5 +1,6 @@
 package hippocraticapps.glucopro.adapters;
 
+import java.util.List;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +13,13 @@ import hippocraticapps.glucopro.R;
 public class ImageAdapter extends BaseAdapter
 {
 	private Context context;
-	private static final String[] gridValues = new String[] {
-		"Test", "Information", "Settings"};
+	private List<LabeledImage> labeledImages;
 
 
-	public ImageAdapter(Context context)
+	public ImageAdapter(Context context, List<LabeledImage> labeledImages)
 	{
 		this.context = context;
+		this.labeledImages = labeledImages;
 	}
 
 
@@ -38,22 +39,11 @@ public class ImageAdapter extends BaseAdapter
 
 			// set value into textview
 			TextView textView = (TextView)gridView.findViewById(R.id.gridItemLabel);
-			textView.setText(gridValues[position]);
+			textView.setText(labeledImages.get(position).getLabel());
 
 			// set image based on selected text
 			ImageView imageView = (ImageView)gridView.findViewById(R.id.gridItemImage);
-
-			String mobile = gridValues[position];
-
-			if (mobile.equals("Test"))
-				imageView.setImageResource(R.drawable.glucohealth_connect);
-			else if (mobile.equals("Information"))
-				imageView.setImageResource(R.drawable.information);
-			else if (mobile.equals("Settings"))
-				imageView.setImageResource(R.drawable.gear_settings);
-			else
-				imageView.setImageResource(R.drawable.blue_gradient);
-
+			imageView.setImageResource(labeledImages.get(position).getImageResource());
 		}
 		else
 			gridView = (View) convertView;
@@ -66,7 +56,7 @@ public class ImageAdapter extends BaseAdapter
 	@Override
 	public int getCount()
 	{
-		return gridValues.length;
+		return labeledImages.size();
 	}
 
 
