@@ -10,6 +10,13 @@ package hippocraticapps.glucopro;
 public final class R {
     public static final class attr {
     }
+    public static final class color {
+        public static final int settings_background=0x7f070000;
+        public static final int settings_offset_crosshair=0x7f070003;
+        public static final int settings_offset_selector=0x7f070004;
+        public static final int settings_shift_circle=0x7f070001;
+        public static final int settings_text=0x7f070002;
+    }
     public static final class dimen {
         /** 
          Customize dimensions originally defined in res/values/dimens.xml (such as
@@ -30,16 +37,17 @@ public final class R {
         public static final int test_wallpaper=0x7f020007;
     }
     public static final class id {
-        public static final int button1=0x7f070005;
-        public static final int glucoHealthLoad=0x7f070008;
-        public static final int gridItemImage=0x7f070001;
-        public static final int gridItemLabel=0x7f070002;
-        public static final int label=0x7f070003;
-        public static final int mainGridView=0x7f070000;
-        public static final int manualTestSubmit=0x7f070009;
-        public static final int recommendationText=0x7f070004;
-        public static final int testManualInput=0x7f070007;
-        public static final int testTitle=0x7f070006;
+        public static final int button1=0x7f080005;
+        public static final int glucoHealthLoad=0x7f080009;
+        public static final int gridItemImage=0x7f080001;
+        public static final int gridItemLabel=0x7f080002;
+        public static final int label=0x7f080003;
+        public static final int mainGridView=0x7f080000;
+        public static final int manualTestSubmit=0x7f08000a;
+        public static final int recommendationText=0x7f080004;
+        public static final int shiftRotator=0x7f080006;
+        public static final int testManualInput=0x7f080008;
+        public static final int testTitle=0x7f080007;
     }
     public static final class layout {
         public static final int charts=0x7f030000;

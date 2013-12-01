@@ -1,6 +1,5 @@
 package hippocraticapps.glucopro.activities;
 import java.util.ArrayList;
-import java.util.HashMap;
 import hippocraticapps.glucopro.R;
 import hippocraticapps.glucopro.adapters.ImageAdapter;
 import hippocraticapps.glucopro.adapters.LabeledImage;
@@ -11,9 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.widget.AdapterView.OnItemClickListener;
 
