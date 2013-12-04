@@ -29,7 +29,7 @@ public class GlucoDBAdapter {
 	public static final String SUGAR_PRE_POST_COL_NAME 	= "PrePost";
 	public static final String SUGAR_LEVEL_COL_NAME		= "Level";
 	public static final String SUGAR_TIME_COL_NAME		= "Time";
-	public static final String[] INSULIN_COL            = new String[]{
+	public static final String[] SUGAR_COL            = new String[]{
 																SUGAR_ID_COL_NAME,
 																SUGAR_SHIFT_COL_NAME,
 																SUGAR_PRE_POST_COL_NAME,
@@ -51,6 +51,13 @@ public class GlucoDBAdapter {
 	public static final String CORRECT_DOSE_COL_NAME 	= "Dose";
 	public static final String CORRECT_TIME_COL_NAME	= "Time";
 	public static final String CORRECT_FAST_COL_NAME	= "Fast";
+	public static final String[] INSULIN_COL            = new String[]{
+																CORRECT_ID_COL_NAME,
+																CORRECT_SHIFT_COL_NAME,
+																CORRECT_DOSE_COL_NAME,
+																CORRECT_TIME_COL_NAME,
+																CORRECT_FAST_COL_NAME
+																};
 	
 	// constants for insulin_correction table column numbers
 	public static final int CORRECT_ID_COL_NUM         	= 0;
@@ -98,9 +105,9 @@ public class GlucoDBAdapter {
 				" (" + 
 				CORRECT_ID_COL_NAME         + " integer primary key autoincrement, " + 
 				CORRECT_SHIFT_COL_NAME      + " integer not null, " + 
-				CORRECT_DOSE_COL_NAME    	+ " text not null, " +
-				CORRECT_TIME_COL_NAME 		+ " blob not null, " + 
-				CORRECT_FAST_COL_NAME 		+ " blob not null " + 
+				CORRECT_DOSE_COL_NAME    	+ " float not null, " +
+				CORRECT_TIME_COL_NAME 		+ " bigint not null, " + 
+				CORRECT_FAST_COL_NAME 		+ " integer not null " + 
 				");";
 		
 		static final String MEAL_DATA_CREATE =
@@ -131,7 +138,7 @@ public class GlucoDBAdapter {
 					newVersion + ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS " + SUGAR_TABLE_CREATE);
 			db.execSQL("DROP TABLE IF EXISTS " + INSULIN_CORRECTION_CREATE);
-			db.execSQL("DROP TABLE IF EXISTS " + MEAL_DATA_CREATE);
+			//db.execSQL("DROP TABLE IF EXISTS " + MEAL_DATA_CREATE);
 			onCreate(db);
 		}
 	} // end of DBOpenHelper class
@@ -180,17 +187,18 @@ public class GlucoDBAdapter {
 	public SugarRecord[] getNSugarEntries(Integer n){
 		//String SugarRecordQuery = "SELECT * FROM "+BLOOD_SUGAR_TABLE+" WHERE 1 LIMIT "+n;
 		SQLiteDatabase db = this.getReadableDatabase();
-		SugarRecord[] nEntries = new SugarRecord[n];
-		
 		Log.d(ADPTR_LOGTAG, "SUGAR RECORD QUERY OPEN");
-		Cursor crsr = db.query(BLOOD_SUGAR_TABLE, INSULIN_COL, null, null, null, null, n.toString());
+		//Cursor crsr = db.query(BLOOD_SUGAR_TABLE, SUGAR_COL, null, null, null, null, n.toString()); Old queries, didn't work so well.
+		Cursor crsr = db.rawQuery("SELECT * FROM "+BLOOD_SUGAR_TABLE+" LIMIT "+n.toString()+" ;", null);
+		
+		SugarRecord[] nEntries = new SugarRecord[crsr.getCount()];
 		
 		if ( crsr.getCount() != 0 ) {
 			crsr.moveToFirst();
 			int i = 0;
 			while ( crsr.isAfterLast() == false && i < n) {
 				int id = crsr.getInt(crsr.getColumnIndex(SUGAR_ID_COL_NAME));
-				int shiftID = crsr.getInt(crsr.getColumnIndex(CORRECT_SHIFT_COL_NAME));
+				int shiftID = crsr.getInt(crsr.getColumnIndex(SUGAR_SHIFT_COL_NAME));
 				int pre = crsr.getInt(crsr.getColumnIndex(SUGAR_PRE_POST_COL_NAME));
 				float level = crsr.getFloat(crsr.getColumnIndex(SUGAR_LEVEL_COL_NAME));
 				long time = crsr.getLong(crsr.getColumnIndex(SUGAR_TIME_COL_NAME));
@@ -207,6 +215,57 @@ public class GlucoDBAdapter {
 		crsr.close();
 		
 		return nEntries;
+	}
+	
+	public void insertInsulinEntry(InsulinRecord r){
+		String insertString = 	"INSERT INTO "+INSULIN_CORRECTION_TABLE+
+								" VALUES ( null, "+r.shiftID+", "+r.dose+", "+r.time+", "+r.fast+")";
+		SQLiteDatabase db = this.getReadableDatabase();
+		db.execSQL(insertString);
+		Log.d("INSERTION", "set record with value: "+r.dose);
+		return;
+	}
+	
+	public InsulinRecord[] getNInsulinEntries(Integer n){
+		//String SugarRecordQuery = "SELECT * FROM "+BLOOD_SUGAR_TABLE+" WHERE 1 LIMIT "+n;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Log.d(ADPTR_LOGTAG, "INSULIN RECORD QUERY OPEN, FETCHING "+n.toString()+" ROWS");
+		//Cursor crsr = db.query(INSULIN_CORRECTION_TABLE, INSULIN_COL, null, null, null, null, n.toString());
+		Cursor crsr =db.rawQuery("SELECT * FROM "+INSULIN_CORRECTION_TABLE+" LIMIT "+n.toString()+" ;", null);
+		
+		InsulinRecord[] nEntries = new InsulinRecord[crsr.getCount()];
+		
+		if ( crsr.getCount() != 0 ) {
+			Log.d("CURSOR","the cursor count is:"+crsr.getCount());
+			crsr.moveToFirst();
+			int i = 0;
+			while ( crsr.isAfterLast() == false && i < n) {
+				int id = crsr.getInt(crsr.getColumnIndex(CORRECT_ID_COL_NAME));
+				int shiftID = crsr.getInt(crsr.getColumnIndex(CORRECT_SHIFT_COL_NAME));
+				float dose = crsr.getFloat(crsr.getColumnIndex(CORRECT_DOSE_COL_NAME));
+				long time = crsr.getLong(crsr.getColumnIndex(CORRECT_TIME_COL_NAME));
+				int fast = crsr.getInt(crsr.getColumnIndex(CORRECT_FAST_COL_NAME));
+				Log.d("ARRAY", "Retrieved record with value: "+dose+" and ID: "+id);
+				
+				
+				nEntries[i] = new InsulinRecord( id, shiftID, dose, time, fast ); // Insert the result into the slot of the array
+				
+				// NEXT!
+				crsr.moveToNext();
+				i++;
+			}
+		}
+		crsr.close();
+		
+		return nEntries;
+	}
+	
+	public void truncateBase(){
+		SQLiteDatabase db = this.getReadableDatabase();
+		//db.execSQL("DROP TABLE IF EXISTS " + SUGAR_TABLE_CREATE);
+		//db.execSQL("DROP TABLE IF EXISTS " + INSULIN_CORRECTION_CREATE);
+		mDbHelper.onCreate(db);
+		return;
 	}
 	
 }

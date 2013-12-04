@@ -6,7 +6,7 @@ public class InsulinRecord extends Record{
 	// static storage vars
 	public int id;
 	public int shiftID;
-	public boolean fast;
+	public int fast;
 	public float dose;
 	public long  time;
 	
@@ -17,7 +17,7 @@ public class InsulinRecord extends Record{
 		return time.toString();
 	}
 	
-	public InsulinRecord( int id, int shiftID, boolean fast, float dose, long time ){
+	public InsulinRecord( int id, int shiftID, float dose, long time, int fast ){
 		// set values
 		this.id = id;
 		this.shiftID = shiftID;
