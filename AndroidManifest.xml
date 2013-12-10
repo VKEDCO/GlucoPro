@@ -68,6 +68,16 @@
             </intent-filter>
         </activity>
         
+        <activity android:name="hippocraticapps.glucopro.BluetoothChat"
+                  android:label="Bluetooth Chat"
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity
+            	android:name="hippocraticapps.glucopro.DeviceListActivity"
+            	android:label="@string/select_device"
+            	android:theme="@android:style/Theme.Dialog"
+            	android:configChanges="orientation|keyboardHidden" />
+        
     </application>
 
 </manifest>
