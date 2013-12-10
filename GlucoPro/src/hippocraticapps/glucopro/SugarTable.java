@@ -3,7 +3,7 @@ package hippocraticapps.glucopro;
 
 public class SugarTable implements DatabaseTable{
 	@Override
-	public void insert(GlucoDBAdapter adptr, Record record) {
+	public void insert(GlucoDBAdapter adptr, GlucoRecord record) {
 		// TODO Auto-generated method stub
 		adptr.insertSugarEntry( (SugarRecord)record );
 		return;

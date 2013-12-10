@@ -2,14 +2,19 @@ package hippocraticapps.glucopro;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 
 public class Main extends Activity {
 	SugarTable sTable = new SugarTable();
 	InsulinTable iTable = new InsulinTable();
 	GlucoDBAdapter adptr = new GlucoDBAdapter(this);
+	private BluetoothAdapter mBlutoothAdapter;
+	private BluetoothChatService mChatService;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -36,7 +41,7 @@ public class Main extends Activity {
 		InsulinRecord[] ir = iTable.peekRange(adptr, 150);
 		
 		for(InsulinRecord i: ir){
-			Log.d("InsulinRecord: ", "id="+i.dose);
+			Log.d("InsulinRecord: ", "dosage="+i.dose);
 		}
 	}
 
@@ -45,6 +50,11 @@ public class Main extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	public void launchConnectionActivity(View view){
+		Intent intent = new Intent(this,BluetoothChat.class);
+		startActivity(intent);
 	}
 
 }

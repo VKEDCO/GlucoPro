@@ -2,7 +2,7 @@ package hippocraticapps.glucopro;
 
 import java.util.Date;
 
-public class MealRecord extends Record{
+public class MealRecord extends GlucoRecord{
 	public int id;
 	public int shiftID;
 	public float carbs;

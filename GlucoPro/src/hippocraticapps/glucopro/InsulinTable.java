@@ -5,7 +5,7 @@ import android.util.Log;
 
 public class InsulinTable implements DatabaseTable{
 	@Override
-	public void insert(GlucoDBAdapter adptr, Record record) {
+	public void insert(GlucoDBAdapter adptr, GlucoRecord record) {
 		// TODO Auto-generated method stub
 		adptr.insertInsulinEntry( (InsulinRecord)record );
 		return;

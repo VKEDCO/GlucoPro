@@ -2,7 +2,7 @@ package hippocraticapps.glucopro;
 
 import java.util.Date;
 
-public class InsulinRecord extends Record{
+public class InsulinRecord extends GlucoRecord{
 	// static storage vars
 	public int id;
 	public int shiftID;

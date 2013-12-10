@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="10"
         android:targetSdkVersion="17" />
 
     <application
@@ -22,6 +22,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="hippocraticapps.glucopro.BluetoothChat"
+                  android:label="Bluetooth Chat"
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity
+            	android:name="hippocraticapps.glucopro.DeviceListActivity"
+            	android:label="@string/select_device"
+            	android:theme="@android:style/Theme.Dialog"
+            	android:configChanges="orientation|keyboardHidden" />
     </application>
 
 </manifest>
