@@ -53,7 +53,7 @@ public class Main extends Activity {
 	}
 	
 	public void launchConnectionActivity(View view){
-		Intent intent = new Intent(this,BluetoothChat.class);
+		Intent intent = new Intent(this,DeviceListActivity.class);
 		startActivity(intent);
 	}
 

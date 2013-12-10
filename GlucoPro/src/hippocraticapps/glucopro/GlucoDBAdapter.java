@@ -189,7 +189,8 @@ public class GlucoDBAdapter {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Log.d(ADPTR_LOGTAG, "SUGAR RECORD QUERY OPEN");
 		//Cursor crsr = db.query(BLOOD_SUGAR_TABLE, SUGAR_COL, null, null, null, null, n.toString()); Old queries, didn't work so well.
-		Cursor crsr = db.rawQuery("SELECT * FROM "+BLOOD_SUGAR_TABLE+" LIMIT "+n.toString()+" ;", null);
+		//Cursor crsr = db.rawQuery("SELECT * FROM "+BLOOD_SUGAR_TABLE+" LIMIT "+n.toString()+" ;", null);
+		Cursor crsr =db.rawQuery("SELECT * FROM (SELECT * FROM "+BLOOD_SUGAR_TABLE+" ORDER BY "+SUGAR_ID_COL_NAME+" DESC LIMIT "+n.toString()+") ORDER BY "+SUGAR_ID_COL_NAME+" DESC ;",null);
 		
 		SugarRecord[] nEntries = new SugarRecord[crsr.getCount()];
 		
@@ -227,11 +228,12 @@ public class GlucoDBAdapter {
 	}
 	
 	public InsulinRecord[] getNInsulinEntries(Integer n){
-		//String SugarRecordQuery = "SELECT * FROM "+BLOOD_SUGAR_TABLE+" WHERE 1 LIMIT "+n;
+		//String SugarRecordQuery = "SELECT * FROM "+BLOOD_SUGAR_TABLE+" WHERE 1 ORDER BY "++" LIMIT "+n;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Log.d(ADPTR_LOGTAG, "INSULIN RECORD QUERY OPEN, FETCHING "+n.toString()+" ROWS");
 		//Cursor crsr = db.query(INSULIN_CORRECTION_TABLE, INSULIN_COL, null, null, null, null, n.toString());
-		Cursor crsr =db.rawQuery("SELECT * FROM "+INSULIN_CORRECTION_TABLE+" LIMIT "+n.toString()+" ;", null);
+		//Cursor crsr =db.rawQuery("SELECT * FROM "+INSULIN_CORRECTION_TABLE+" ORDER BY "+CORRECT_ID_COL_NAME+" DESC LIMIT "+n.toString()+" ;", null);
+		Cursor crsr =db.rawQuery("SELECT * FROM (SELECT * FROM "+INSULIN_CORRECTION_TABLE+" ORDER BY "+CORRECT_ID_COL_NAME+" DESC LIMIT "+n.toString()+") ORDER BY "+CORRECT_ID_COL_NAME+" DESC ;",null);
 		
 		InsulinRecord[] nEntries = new InsulinRecord[crsr.getCount()];
 		
