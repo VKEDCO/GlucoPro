@@ -10,68 +10,61 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import hippocraticapps.glucopro.R;
 
-public class ImageAdapter extends BaseAdapter
-{
-	private Context context;
-	private List<LabeledImage> labeledImages;
+public class ImageAdapter extends BaseAdapter {
+    private Context context;
+    private List<LabeledImage> labeledImages;
 
 
-	public ImageAdapter(Context context, List<LabeledImage> labeledImages)
-	{
-		this.context = context;
-		this.labeledImages = labeledImages;
-	}
-
-
-
-	public View getView(int position, View convertView, ViewGroup parent)
-	{
-		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-		View gridView;
-
-		if (convertView == null)
-		{
-			gridView = new View(context);
-
-			// get layout from mobile.xml
-			gridView = inflater.inflate(R.layout.main_gridcell, null);
-
-			// set value into textview
-			TextView textView = (TextView)gridView.findViewById(R.id.gridItemLabel);
-			textView.setText(labeledImages.get(position).getLabel());
-
-			// set image based on selected text
-			ImageView imageView = (ImageView)gridView.findViewById(R.id.gridItemImage);
-			imageView.setImageResource(labeledImages.get(position).getImageResource());
-		}
-		else
-			gridView = (View) convertView;
-
-		return gridView;
-	}
+    public ImageAdapter(Context context, List<LabeledImage> labeledImages) {
+        this.context = context;
+        this.labeledImages = labeledImages;
+    }
 
 
 
-	@Override
-	public int getCount()
-	{
-		return labeledImages.size();
-	}
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View gridView;
+
+        if (convertView == null) {
+            gridView = new View(context);
+
+            // get layout from mobile.xml
+            gridView = inflater.inflate(R.layout.main_gridcell, null);
+
+            // set value into textview
+            TextView textView = (TextView)gridView.findViewById(R.id.gridItemLabel);
+            textView.setText(labeledImages.get(position).getLabel());
+
+            // set image based on selected text
+            ImageView imageView = (ImageView)gridView.findViewById(R.id.gridItemImage);
+            imageView.setImageResource(labeledImages.get(position).getImageResource());
+        }
+        else
+            gridView = (View) convertView;
+
+        return gridView;
+    }
 
 
 
-	@Override
-	public Object getItem(int position)
-	{
-		return null;
-	}
+    @Override
+    public int getCount() {
+        return labeledImages.size();
+    }
 
 
 
-	@Override
-	public long getItemId(int position)
-	{
-		return 0;
-	}
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
 }

@@ -56,11 +56,9 @@ public class BluetoothChatService {
     // Unique UUID for this application
     private static final UUID MY_UUID_SECURE = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
     //private static final UUID MY_UUID_INSECURE = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
-    
+
     //private static final UUID MY_UUID_SECURE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static final UUID MY_UUID_INSECURE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    
-    
 
     // Member fields
     private final BluetoothAdapter mAdapter;
@@ -76,30 +74,30 @@ public class BluetoothChatService {
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
     public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
-    
+
     // custom code declarations
     private int num_records;
     private final static byte STX = (byte) 0x80;
-	private final static byte CMD_NUM_RECORDS = (byte)0x00;
-	private final static byte CMD_UNITS = (byte)0x05;
-	private final static byte CMD_RECORD = (byte)0x01;
-	private final static byte CMD_SERIAL = (byte)0x09;
-	
+    private final static byte CMD_NUM_RECORDS = (byte)0x00;
+    private final static byte CMD_UNITS = (byte)0x05;
+    private final static byte CMD_RECORD = (byte)0x01;
+    private final static byte CMD_SERIAL = (byte)0x09;
+
     private BluetoothSocket mmSocket;
     private InputStream mmInStream;
     private OutputStream mmOutStream;
-    
-	private final static int WRITE_RETRIES = 5;
-	private final static int WRITE_AVAILABLE_RETRIES = 50;
-	private final static int WRITE_TIMEOUT = 50;
-	private final static int READ_AVAILABLE_RETRIES = 50;
-	private final static int READ_TIMEOUT = 50;
-	private final static int DIALOG_RETRIES_IN_CASE_OF_WRONG_RESPONCE = 3;
+
+    private final static int WRITE_RETRIES = 5;
+    private final static int WRITE_AVAILABLE_RETRIES = 50;
+    private final static int WRITE_TIMEOUT = 50;
+    private final static int READ_AVAILABLE_RETRIES = 50;
+    private final static int READ_TIMEOUT = 50;
+    private final static int DIALOG_RETRIES_IN_CASE_OF_WRONG_RESPONCE = 3;
     public static final int DIALOG_PROGRESS = 2;
-    
-	private Activity mActivity;
-	private int connectState;
-	private String mac;
+
+    private Activity mActivity;
+    private int connectState;
+    private String mac;
     //private ProgressDialog mDialogProgress;
 
     /**
@@ -112,8 +110,9 @@ public class BluetoothChatService {
         mState = STATE_NONE;
         mHandler = handler;
         mActivity = (Activity) context;
-        
     }
+
+
 
     /**
      * Set the current state of the chat connection
@@ -127,23 +126,34 @@ public class BluetoothChatService {
         mHandler.obtainMessage(BluetoothChat.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
 
+
+
     /**
      * Return the current connection state. */
     public synchronized int getState() {
         return mState;
     }
 
+
+
     /**
      * Start the chat service. Specifically start AcceptThread to begin a
      * session in listening (server) mode. Called by the Activity onResume() */
     public synchronized void start() {
-        if (D) Log.d(TAG, "start");
+        if (D)
+            Log.d(TAG, "start");
 
         // Cancel any thread attempting to make a connection
-        if (mConnectThread != null) {mConnectThread.cancel(); mConnectThread = null;}
+        if (mConnectThread != null) {
+            mConnectThread.cancel();
+            mConnectThread = null;
+        }
 
         // Cancel any thread currently running a connection
-        if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
+        if (mConnectedThread != null) {
+            mConnectedThread.cancel();
+            mConnectedThread = null;
+        }
 
         setState(STATE_LISTEN);
 
@@ -152,11 +162,14 @@ public class BluetoothChatService {
             mSecureAcceptThread = new AcceptThread(true);
             mSecureAcceptThread.start();
         }
+
         if (mInsecureAcceptThread == null) {
             mInsecureAcceptThread = new AcceptThread(false);
             mInsecureAcceptThread.start();
         }
     }
+
+
 
     /**
      * Start the ConnectThread to initiate a connection to a remote device.
@@ -164,21 +177,30 @@ public class BluetoothChatService {
      * @param secure Socket Security type - Secure (true) , Insecure (false)
      */
     public synchronized void connect(BluetoothDevice device, boolean secure) {
-        if (D) Log.d(TAG, "connect to: " + device);
+        if (D)
+            Log.d(TAG, "connect to: " + device);
 
         // Cancel any thread attempting to make a connection
         if (mState == STATE_CONNECTING) {
-            if (mConnectThread != null) {mConnectThread.cancel(); mConnectThread = null;}
+            if (mConnectThread != null) {
+                mConnectThread.cancel();
+                mConnectThread = null;
+            }
         }
 
         // Cancel any thread currently running a connection
-        if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
+        if (mConnectedThread != null) {
+            mConnectedThread.cancel();
+            mConnectedThread = null;
+        }
 
         // Start the thread to connect with the given device
         mConnectThread = new ConnectThread(device, secure);
         mConnectThread.start();
         setState(STATE_CONNECTING);
     }
+
+
 
     /**
      * Start the ConnectedThread to begin managing a Bluetooth connection
@@ -187,19 +209,27 @@ public class BluetoothChatService {
      */
     public synchronized void connected(BluetoothSocket socket, BluetoothDevice
             device, final String socketType) {
-        if (D) Log.d(TAG, "connected, Socket Type:" + socketType);
+        if (D)
+            Log.d(TAG, "connected, Socket Type:" + socketType);
 
         // Cancel the thread that completed the connection
-        if (mConnectThread != null) {mConnectThread.cancel(); mConnectThread = null;}
+        if (mConnectThread != null) {
+            mConnectThread.cancel();
+            mConnectThread = null;
+        }
 
         // Cancel any thread currently running a connection
-        if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
+        if (mConnectedThread != null) {
+            mConnectedThread.cancel();
+            mConnectedThread = null;
+        }
 
         // Cancel the accept thread because we only want to connect to one device
         if (mSecureAcceptThread != null) {
             mSecureAcceptThread.cancel();
             mSecureAcceptThread = null;
         }
+
         if (mInsecureAcceptThread != null) {
             mInsecureAcceptThread.cancel();
             mInsecureAcceptThread = null;
@@ -208,7 +238,7 @@ public class BluetoothChatService {
         // Start the thread to manage the connection and perform transmissions
         mConnectedThread = new ConnectedThread(socket, socketType);
         mConnectedThread.start();
-        
+
         mac = device.getAddress();
 
         // Send the name of the connected device back to the UI Activity
@@ -221,11 +251,14 @@ public class BluetoothChatService {
         setState(STATE_CONNECTED);
     }
 
+
+
     /**
      * Stop all threads
      */
     public synchronized void stop() {
-        if (D) Log.d(TAG, "stop");
+        if (D)
+            Log.d(TAG, "stop");
 
         if (mConnectThread != null) {
             mConnectThread.cancel();
@@ -246,8 +279,11 @@ public class BluetoothChatService {
             mInsecureAcceptThread.cancel();
             mInsecureAcceptThread = null;
         }
+
         setState(STATE_NONE);
     }
+
+
 
     /**
      * Write to the ConnectedThread in an unsynchronized manner
@@ -262,10 +298,13 @@ public class BluetoothChatService {
             if (mState != STATE_CONNECTED) return;
             r = mConnectedThread;
         }
+
         // Perform the write unsynchronized
         writeToMeter(out);
         //r.write(out);
     }
+
+
 
     /**
      * Indicate that the connection attempt failed and notify the UI Activity.
@@ -282,6 +321,8 @@ public class BluetoothChatService {
         BluetoothChatService.this.start();
     }
 
+
+
     /**
      * Indicate that the connection was lost and notify the UI Activity.
      */
@@ -297,6 +338,8 @@ public class BluetoothChatService {
         BluetoothChatService.this.start();
     }
 
+
+
     /**
      * This thread runs while listening for incoming connections. It behaves
      * like a server-side client. It runs until a connection is accepted
@@ -307,28 +350,32 @@ public class BluetoothChatService {
         private final BluetoothServerSocket mmServerSocket;
         private String mSocketType;
 
+
         public AcceptThread(boolean secure) {
             BluetoothServerSocket tmp = null;
             mSocketType = secure ? "Secure":"Insecure";
 
             // Create a new listening server socket
             try {
-                if (secure) {
+                if (secure)
                     tmp = mAdapter.listenUsingRfcommWithServiceRecord(NAME_SECURE,
                         MY_UUID_SECURE);
-                } else {
+                else
                     tmp = mAdapter.listenUsingInsecureRfcommWithServiceRecord(
                             NAME_INSECURE, MY_UUID_INSECURE);
-                }
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 Log.e(TAG, "Socket Type: " + mSocketType + "listen() failed", e);
             }
+
             mmServerSocket = tmp;
         }
 
+
+
         public void run() {
-            if (D) Log.d(TAG, "Socket Type: " + mSocketType +
-                    "BEGIN mAcceptThread" + this);
+            if (D)
+                Log.d(TAG, "Socket Type: " + mSocketType + "BEGIN mAcceptThread" + this);
             setName("AcceptThread" + mSocketType);
 
             BluetoothSocket socket = null;
@@ -339,7 +386,8 @@ public class BluetoothChatService {
                     // This is a blocking call and will only return on a
                     // successful connection or an exception
                     socket = mmServerSocket.accept();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     Log.e(TAG, "Socket Type: " + mSocketType + "accept() failed", e);
                     break;
                 }
@@ -348,39 +396,48 @@ public class BluetoothChatService {
                 if (socket != null) {
                     synchronized (BluetoothChatService.this) {
                         switch (mState) {
-                        case STATE_LISTEN:
-                        case STATE_CONNECTING:
-                            // Situation normal. Start the connected thread.
-                        	Log.d(TAG,socket.getRemoteDevice().getName()+" Socket Type: "+mSocketType);
-                            connected(socket, socket.getRemoteDevice(),
-                                    mSocketType);
-                            break;
-                        case STATE_NONE:
-                        case STATE_CONNECTED:
-                            // Either not ready or already connected. Terminate new socket.
-                            try {
-                                socket.close();
-                            } catch (IOException e) {
-                                Log.e(TAG, "Could not close unwanted socket", e);
-                            }
-                            break;
+                            case STATE_LISTEN:
+                            case STATE_CONNECTING:
+                                // Situation normal. Start the connected thread.
+                                Log.d(TAG,socket.getRemoteDevice().getName()+" Socket Type: "+mSocketType);
+                                connected(socket, socket.getRemoteDevice(),
+                                        mSocketType);
+                                break;
+
+                            case STATE_NONE:
+                            case STATE_CONNECTED:
+                                // Either not ready or already connected. Terminate new socket.
+                                try {
+                                    socket.close();
+                                }
+                                catch (IOException e) {
+                                    Log.e(TAG, "Could not close unwanted socket", e);
+                                }
+                                break;
                         }
                     }
                 }
             }
-            if (D) Log.i(TAG, "END mAcceptThread, socket Type: " + mSocketType);
 
+            if (D)
+                Log.i(TAG, "END mAcceptThread, socket Type: " + mSocketType);
         }
 
+
+
         public void cancel() {
-            if (D) Log.d(TAG, "Socket Type: " + mSocketType + " :cancel " + this);
+            if (D)
+                Log.d(TAG, "Socket Type: " + mSocketType + " :cancel " + this);
+
             try {
                 mmServerSocket.close();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 Log.e(TAG, "Socket Type: " + mSocketType + " :close() of server failed", e);
             }
         }
     }
+
 
 
     /**
@@ -401,18 +458,21 @@ public class BluetoothChatService {
             // Get a BluetoothSocket for a connection with the
             // given BluetoothDevice
             try {
-                if (secure) {
+                if (secure)
                     tmp = device.createRfcommSocketToServiceRecord(
                             MY_UUID_SECURE);
-                } else {
+                else
                     tmp = device.createInsecureRfcommSocketToServiceRecord(
                             MY_UUID_INSECURE);
-                }
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 Log.e(TAG, "Socket Type: " + mSocketType + "create() failed", e);
             }
+
             mmSocket = tmp;
         }
+
+
 
         public void run() {
             Log.i(TAG, "BEGIN mConnectThread SocketType:" + mSocketType);
@@ -426,14 +486,17 @@ public class BluetoothChatService {
                 // This is a blocking call and will only return on a
                 // successful connection or an exception
                 mmSocket.connect();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 // Close the socket
                 try {
                     mmSocket.close();
-                } catch (IOException e2) {
+                }
+                catch (IOException e2) {
                     Log.e(TAG, "unable to close() " + mSocketType +
                             " socket during connection failure", e2);
                 }
+
                 connectionFailed();
                 return;
             }
@@ -447,23 +510,28 @@ public class BluetoothChatService {
             connected(mmSocket, mmDevice, mSocketType);
         }
 
+
+
         public void cancel() {
             try {
                 mmSocket.close();
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 Log.e(TAG, "close() of connect " + mSocketType + " socket failed", e);
             }
         }
     }
-    
+
+
+
     /**
      * This thread runs during a connection with a remote device.
      * It handles all incoming and outgoing transmissions.
      */
     private class ConnectedThread extends Thread {
         public ConnectedThread(BluetoothSocket socket, String socketType) {
-        	Looper.prepare();
-        	Log.d(TAG,"create ConnectedThread");
+            Looper.prepare();
+            Log.d(TAG,"create ConnectedThread");
             mmSocket = socket;
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
@@ -472,361 +540,367 @@ public class BluetoothChatService {
             try {
                 tmpIn = socket.getInputStream();
                 tmpOut = socket.getOutputStream();
-            } catch (IOException e) {
-            	Log.d(TAG,"temp sockets not created: " + e.getMessage());
+            }
+            catch (IOException e) {
+                Log.d(TAG,"temp sockets not created: " + e.getMessage());
             }
 
             mmInStream = tmpIn;
             mmOutStream = tmpOut;
         }
 
+
+
         @Override
-		public void run() {
-        	Looper.prepare();
-			try {
-				((BluetoothConnectListener)mActivity).onBluetoothConnected(BluetoothChatService.this, mState);
-			} catch (Exception e) {
-				Log.d(TAG,"Error in connected thread: " + e.getMessage());
-				//e.printException(e);
-			}
-			
-            if(mState == BluetoothConnectListener.STATE_LINK) {
-            	//mDialogHandler.sendEmptyMessage(MSG_DIALOG_CONNECT_HIDE);
+        public void run() {
+            Looper.prepare();
+
+            try  {
+                ((BluetoothConnectListener)mActivity).onBluetoothConnected(BluetoothChatService.this, mState);
             }
-            	
+            catch (Exception e) {
+                Log.d(TAG,"Error in connected thread: " + e.getMessage());
+                //e.printException(e);
+            }
+
+            if(mState == BluetoothConnectListener.STATE_LINK) {
+                //mDialogHandler.sendEmptyMessage(MSG_DIALOG_CONNECT_HIDE);
+            }
+
             // Reset the ConnectThread because we're done
             synchronized (BluetoothChatService.this) {
                 mConnectedThread = null;
             }
         }
-        
+
         public void cancel() {
             try {
                 mmSocket.close();
-            } catch (IOException e) {
-            	Log.d(TAG,"close() of connect socket failed: "+ e);
+            }
+            catch (IOException e) {
+                Log.d(TAG,"close() of connect socket failed: "+ e);
             }
         }
-
-
     }
-    
-    
-    
+
+
+
     // ===== Beginning of custom code ============================
-    
+
     public void GetGlucodata() {
-    	Thread mGetDataThread = new GetDataThread();
-    	//mDialogHandler.sendEmptyMessage(MSG_DIALOG_PROGRESS_SHOW);
-    	mGetDataThread.start();
+        Thread mGetDataThread = new GetDataThread();
+        //mDialogHandler.sendEmptyMessage(MSG_DIALOG_PROGRESS_SHOW);
+        mGetDataThread.start();
     }
-    
-	public class GetDataThread extends Thread {
-		public GetDataThread() {
-			
-		}
-		
-		public void run() {
-			try {
-				Boolean tmp = readDataFromMeter();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	
-    
+
+
+
+    public class GetDataThread extends Thread {
+        public GetDataThread() {
+
+        }
+
+        public void run() {
+            try {
+                Boolean tmp = readDataFromMeter();
+            }
+            catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
     public void closeConnection() {
         try {
             mmSocket.close();
             connectionLost();
-        } catch (IOException e) {
-        	Log.d(TAG,"close() of connect socket failed: " + e.getMessage());
+        }
+        catch (IOException e) {
+            Log.d(TAG,"close() of connect socket failed: " + e.getMessage());
         }
     }
-    
+
     /**
      * Write to the connected OutStream.
      * @param buffer  The bytes to write
      */
-	private boolean writeToMeter(byte[] send){			
-		try {
-			if((mmOutStream != null) && (mmInStream != null)){
-//				if (mmInStream.available() > 0) return true;
-				if (mmInStream.available() > 0) {
-					Log.d(TAG,"There are " + mmInStream.available() + " bytes in input stream, skip it");
-					mmInStream.skip(mmInStream.available());
-				}
-				
-				for (int j = 0; j < WRITE_RETRIES; j++) {
-					mmOutStream.write(send);
-					Log.d(TAG,"Wrote " + send.length + " bytes");
-//					mmOutStream.flush();
-					for (int i = 0; i < WRITE_AVAILABLE_RETRIES; i++) {
-						if (mmInStream.available() > 0) return true;
-						Thread.sleep(WRITE_TIMEOUT);
-					}
-					Log.d(TAG,"No answer, repeat...");
-				}
+    private boolean writeToMeter(byte[] send){
+        try {
+            if((mmOutStream != null) && (mmInStream != null)){
+//              if (mmInStream.available() > 0) return true;
+                if (mmInStream.available() > 0) {
+                    Log.d(TAG,"There are " + mmInStream.available() + " bytes in input stream, skip it");
+                    mmInStream.skip(mmInStream.available());
+                }
 
-				return false;
-			}
-			else {
-				Log.d(TAG,"Can not write to meter");
-			}
-		} catch (Exception e) {
-			Log.d(TAG,"Error while write to meter: " + e.getMessage());
-        	//Logger.printException(e);
-		}
-		return false;
-	}
+                for (int j = 0; j < WRITE_RETRIES; j++) {
+                    mmOutStream.write(send);
+                    Log.d(TAG,"Wrote " + send.length + " bytes");
+//                  mmOutStream.flush();
+                    for (int i = 0; i < WRITE_AVAILABLE_RETRIES; i++) {
+                        if (mmInStream.available() > 0) return true;
+                        Thread.sleep(WRITE_TIMEOUT);
+                    }
+                    Log.d(TAG,"No answer, repeat...");
+                }
 
-	private byte[] readFromMeter(int paramInt) throws Exception
-	{
-		int i;
-		byte[] arrayOfByte = new byte[paramInt];
-		Log.d(TAG,"Need to read " + paramInt + " bytes, available " + mmInStream.available() + " bytes");
-		for (i = 0; i < paramInt; ++i)
-		{
-			for (int k = 0; k < READ_AVAILABLE_RETRIES; k++) {
-				if (mmInStream.available() > 0)
-					break;
-				Thread.sleep(READ_TIMEOUT);
-			}
-			if (mmInStream.available() == 0)
-				return null;
-		  
-		  int j = mmInStream.read();
-		  if (j == -1)
-		    throw new IOException();
-		  arrayOfByte[i] = (byte)j;
-		}
+                return false;
+            }
+            else {
+                Log.d(TAG,"Can not write to meter");
+            }
+        } catch (Exception e) {
+            Log.d(TAG,"Error while write to meter: " + e.getMessage());
+            //Logger.printException(e);
+        }
+        return false;
+    }
 
-		Log.d(TAG,"Read " + i + " bytes");
-//		for (int t = 0; t < i; t++) {
-//			Logger.debug(" "+arrayOfByte[t]);
-//		}
-		return arrayOfByte;
-	}
+    private byte[] readFromMeter(int paramInt) throws Exception
+    {
+        int i;
+        byte[] arrayOfByte = new byte[paramInt];
+        Log.d(TAG,"Need to read " + paramInt + " bytes, available " + mmInStream.available() + " bytes");
+        for (i = 0; i < paramInt; ++i)
+        {
+            for (int k = 0; k < READ_AVAILABLE_RETRIES; k++) {
+                if (mmInStream.available() > 0)
+                    break;
+                Thread.sleep(READ_TIMEOUT);
+            }
+            if (mmInStream.available() == 0)
+                return null;
 
-	private byte[] dialogWithMeter(byte[] send, int noOfBytes) throws Exception{
-		byte receive[];
-		for (int i = 0; i < DIALOG_RETRIES_IN_CASE_OF_WRONG_RESPONCE; i++) {
-			boolean isWritten = writeToMeter(send);
-			if(!isWritten)
-				throw new IOException("Unable to write into device"); 
-			
-		
-			receive = readFromMeter(noOfBytes);
+          int j = mmInStream.read();
+          if (j == -1)
+            throw new IOException();
+          arrayOfByte[i] = (byte)j;
+        }
 
-			/* Corrupted or no data */
-			if (receive == null) {
-    			/* Try again */
-    			Thread.sleep(100);
-    			continue;
-			}	
-			
-			if(receive[3] == send[3]){
-				return receive;
-			}
-			Log.d(TAG,"Wrong: req:" + send[3]+" res:" + receive[3]);
-			for (int j = 0; j < noOfBytes; j++) {
-				Log.d(TAG," "+receive[j]);
-			}
-			/* Try again */
-			Thread.sleep(100);
-		}
-		throw new IOException("Wrong response from device"); 
-	}
-	
+        Log.d(TAG,"Read " + i + " bytes");
+//      for (int t = 0; t < i; t++) {
+//          Logger.debug(" "+arrayOfByte[t]);
+//      }
+        return arrayOfByte;
+    }
 
-    
-	public boolean readDataFromMeter() throws Exception {
-		Message msg;
-		Bundle bundle;
-		Record record;
-		Record lastRecord = null;
-		
-		int recordsCount = 0;
+    private byte[] dialogWithMeter(byte[] send, int noOfBytes) throws Exception{
+        byte receive[];
+        for (int i = 0; i < DIALOG_RETRIES_IN_CASE_OF_WRONG_RESPONCE; i++) {
+            boolean isWritten = writeToMeter(send);
+            if(!isWritten)
+                throw new IOException("Unable to write into device");
 
-		byte  sc_sendBuf1[] = new byte[6];
-		byte  sc_receiveBuf1[] = new byte[7];
-		
-		// get the number of records
-		sc_sendBuf1[0] = STX;//stx
-		sc_sendBuf1[1] = (byte)0x01;//size
-		sc_sendBuf1[2] = (byte) ~ ( sc_sendBuf1[1] );//~size
-		sc_sendBuf1[3] = CMD_NUM_RECORDS;//command
-		sc_sendBuf1[4] = (byte) ~(sc_sendBuf1[0] ^ sc_sendBuf1[2]); //checksum L
-		sc_sendBuf1[5] = (byte) ~(sc_sendBuf1[1] ^ sc_sendBuf1[3]); // checksum H
-		try{
-			sc_receiveBuf1 = dialogWithMeter(sc_sendBuf1, 7);				
-		}
-		catch(Exception e)
-		{
-			closeConnection(); 
-        	//Logger.printException(e);
-			return false;
-		}
-		num_records = sc_receiveBuf1[4];
-		Log.d(TAG,"NUM_REC = " + num_records);
-		msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_PROGRESS_MAX);
-	    bundle = new Bundle();
-	    bundle.putInt("progressMax", num_records);
-	    msg.setData(bundle);
-		mHandler.sendMessage(msg);
 
-		String currentSync = "";
-		//String lastSync = AppConfig.getInstance().getLastSync();
-		//Results.getInstance().clear();
-		byte  sc_sendBuf2[] = new byte[7];
-		byte  sc_receiveBuf2[] = new byte[13];
+            receive = readFromMeter(noOfBytes);
 
-		while( true ) {
-			/**
-			 * one record request, 0x01
-			 */
-			sc_sendBuf2[0] = STX;//stx
-			sc_sendBuf2[1] = (byte)0x02;//size
-			sc_sendBuf2[2] = (byte) ~ ( sc_sendBuf2[1] );//~size
-			sc_sendBuf2[3] = CMD_RECORD;//command
-			sc_sendBuf2[4] = (byte)recordsCount;//data
-			sc_sendBuf2[5] = (byte) ~((sc_sendBuf2[0] ^ sc_sendBuf2[2]) ^ sc_sendBuf2[4]); //checksum L
-			sc_sendBuf2[6] = (byte) ~(sc_sendBuf2[1] ^ sc_sendBuf2[3]); // checksum H
+            /* Corrupted or no data */
+            if (receive == null) {
+                /* Try again */
+                Thread.sleep(100);
+                continue;
+            }
 
-			try{
-				sc_receiveBuf2 = dialogWithMeter(sc_sendBuf2, 13);				
-			}
-			catch(Exception e)
-			{
-	        	//Logger.printException(e);
-				closeConnection(); 
-				return false;
-			}
+            if(receive[3] == send[3]){
+                return receive;
+            }
+            Log.d(TAG,"Wrong: req:" + send[3]+" res:" + receive[3]);
+            for (int j = 0; j < noOfBytes; j++) {
+                Log.d(TAG," "+receive[j]);
+            }
+            /* Try again */
+            Thread.sleep(100);
+        }
+        throw new IOException("Wrong response from device");
+    }
 
-			record = new Record(sc_receiveBuf2, 5);
 
-			if ( record.getResult() == 0 ) {
-				if ( recordsCount == 0 ) {
-					Log.d(TAG,"Error, meter records not found!");
-				}
-				/* No data in meter */
-				break;
-			} else {
-				if ( record.equals(lastRecord) ) {
-					lastRecord = record; /* the same record, try again */
-				} else {
-					lastRecord = record;
-					
-					Log.d(TAG,"Record " + Integer.toString(recordsCount));
-					
-					//Results.getInstance().addRecord(record);
-			        // Send the reading results to the UI Activity
-			        msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_RESULT);
-			        bundle = new Bundle();
-			        bundle.putString("result", record.toString());
-			        msg.setData(bundle);
-			        mHandler.sendMessage(msg);
 
-					//Toast.makeText(mActivity, record.toString(), Toast.LENGTH_SHORT).show();
-					recordsCount++;
+    public boolean readDataFromMeter() throws Exception {
+        Message msg;
+        Bundle bundle;
+        Record record;
+        Record lastRecord = null;
 
-					currentSync = record.convertToLastSync();
-					//if(currentSync.equals(lastSync)){
-					//	break;
-					//}
+        int recordsCount = 0;
 
-				}
-				Thread.sleep(100); /* Required -- ori. 55 */
-			
-			}
+        byte  sc_sendBuf1[] = new byte[6];
+        byte  sc_receiveBuf1[] = new byte[7];
+
+        // get the number of records
+        sc_sendBuf1[0] = STX;//stx
+        sc_sendBuf1[1] = (byte)0x01;//size
+        sc_sendBuf1[2] = (byte) ~ ( sc_sendBuf1[1] );//~size
+        sc_sendBuf1[3] = CMD_NUM_RECORDS;//command
+        sc_sendBuf1[4] = (byte) ~(sc_sendBuf1[0] ^ sc_sendBuf1[2]); //checksum L
+        sc_sendBuf1[5] = (byte) ~(sc_sendBuf1[1] ^ sc_sendBuf1[3]); // checksum H
+        try{
+            sc_receiveBuf1 = dialogWithMeter(sc_sendBuf1, 7);
+        }
+        catch(Exception e)
+        {
+            closeConnection();
+            //Logger.printException(e);
+            return false;
+        }
+        num_records = sc_receiveBuf1[4];
+        Log.d(TAG,"NUM_REC = " + num_records);
+        msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_PROGRESS_MAX);
+        bundle = new Bundle();
+        bundle.putInt("progressMax", num_records);
+        msg.setData(bundle);
+        mHandler.sendMessage(msg);
+
+        String currentSync = "";
+        //String lastSync = AppConfig.getInstance().getLastSync();
+        //Results.getInstance().clear();
+        byte  sc_sendBuf2[] = new byte[7];
+        byte  sc_receiveBuf2[] = new byte[13];
+
+        while( true ) {
+            /**
+             * one record request, 0x01
+             */
+            sc_sendBuf2[0] = STX;//stx
+            sc_sendBuf2[1] = (byte)0x02;//size
+            sc_sendBuf2[2] = (byte) ~ ( sc_sendBuf2[1] );//~size
+            sc_sendBuf2[3] = CMD_RECORD;//command
+            sc_sendBuf2[4] = (byte)recordsCount;//data
+            sc_sendBuf2[5] = (byte) ~((sc_sendBuf2[0] ^ sc_sendBuf2[2]) ^ sc_sendBuf2[4]); //checksum L
+            sc_sendBuf2[6] = (byte) ~(sc_sendBuf2[1] ^ sc_sendBuf2[3]); // checksum H
+
+            try{
+                sc_receiveBuf2 = dialogWithMeter(sc_sendBuf2, 13);
+            }
+            catch(Exception e)
+            {
+                //Logger.printException(e);
+                closeConnection();
+                return false;
+            }
+
+            record = new Record(sc_receiveBuf2, 5);
+
+            if ( record.getResult() == 0 ) {
+                if ( recordsCount == 0 ) {
+                    Log.d(TAG,"Error, meter records not found!");
+                }
+                /* No data in meter */
+                break;
+            } else {
+                if ( record.equals(lastRecord) ) {
+                    lastRecord = record; /* the same record, try again */
+                } else {
+                    lastRecord = record;
+
+                    Log.d(TAG,"Record " + Integer.toString(recordsCount));
+
+                    //Results.getInstance().addRecord(record);
+                    // Send the reading results to the UI Activity
+                    msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_RESULT);
+                    bundle = new Bundle();
+                    bundle.putString("result", record.toString());
+                    msg.setData(bundle);
+                    mHandler.sendMessage(msg);
+
+                    //Toast.makeText(mActivity, record.toString(), Toast.LENGTH_SHORT).show();
+                    recordsCount++;
+
+                    currentSync = record.convertToLastSync();
+                    //if(currentSync.equals(lastSync)){
+                    //  break;
+                    //}
+
+                }
+                Thread.sleep(100); /* Required -- ori. 55 */
+
+            }
             //mDialogProgress.incrementProgressBy(1);
-			mHandler.sendEmptyMessage(BluetoothChat.MESSAGE_PROGRESS);
-			
-		}
-		//closeConnection(); // TODO check return value ?
+            mHandler.sendEmptyMessage(BluetoothChat.MESSAGE_PROGRESS);
 
-		if ( recordsCount == 0 ) {
-			return false;
-		}
-		
-		Log.d(TAG,"Read " + recordsCount + " records");
-		//mDialogHandler.sendEmptyMessage(MSG_DIALOG_PROGRESS_HIDE);
-		return true;
-	}
-	
+        }
+        //closeConnection(); // TODO check return value ?
+
+        if ( recordsCount == 0 ) {
+            return false;
+        }
+
+        Log.d(TAG,"Read " + recordsCount + " records");
+        //mDialogHandler.sendEmptyMessage(MSG_DIALOG_PROGRESS_HIDE);
+        return true;
+    }
+
     public boolean getSerial(){
-		Message msg;
-		Bundle bundle;
-		
-		byte  sc_sendBuf[] = new byte[6];
-		byte  sc_receiveBuf[] = new byte[15];
-		sc_sendBuf[0] = STX;//stx
-		sc_sendBuf[1] = (byte)0x01;//size
-		sc_sendBuf[2] = (byte) ~ ( sc_sendBuf[1] );//~size
-		sc_sendBuf[3] = CMD_SERIAL;//command
-		sc_sendBuf[4] = (byte) ~(sc_sendBuf[0] ^ sc_sendBuf[2]); //checksum L
-		sc_sendBuf[5] = (byte) ~(sc_sendBuf[1] ^ sc_sendBuf[3]); // checksum H
+        Message msg;
+        Bundle bundle;
 
-		try{
-			sc_receiveBuf = dialogWithMeter(sc_sendBuf, 15);
-			Thread.sleep(100); // Required 
-		}
-		catch(Exception e)
-		{
-			closeConnection(); 
-			return false;
-		}
+        byte  sc_sendBuf[] = new byte[6];
+        byte  sc_receiveBuf[] = new byte[15];
+        sc_sendBuf[0] = STX;//stx
+        sc_sendBuf[1] = (byte)0x01;//size
+        sc_sendBuf[2] = (byte) ~ ( sc_sendBuf[1] );//~size
+        sc_sendBuf[3] = CMD_SERIAL;//command
+        sc_sendBuf[4] = (byte) ~(sc_sendBuf[0] ^ sc_sendBuf[2]); //checksum L
+        sc_sendBuf[5] = (byte) ~(sc_sendBuf[1] ^ sc_sendBuf[3]); // checksum H
 
-		String serial = "";
-		for (int idx = 4; idx < 14; idx++){
-			char symbol = (char)sc_receiveBuf[idx];
-			//if(Character.isDigit(symbol))
-				serial += symbol;
-		}
-		
+        try{
+            sc_receiveBuf = dialogWithMeter(sc_sendBuf, 15);
+            Thread.sleep(100); // Required
+        }
+        catch(Exception e)
+        {
+            closeConnection();
+            return false;
+        }
+
+        String serial = "";
+        for (int idx = 4; idx < 14; idx++){
+            char symbol = (char)sc_receiveBuf[idx];
+            //if(Character.isDigit(symbol))
+                serial += symbol;
+        }
+
         msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_SN);
         bundle = new Bundle();
         bundle.putString("sn", serial);
         bundle.putString(BluetoothChat.DEVICE_MAC, mac);
         msg.setData(bundle);
         mHandler.sendMessage(msg);
-		
-		Log.e(TAG,"Serial Number" + serial);
-		return true;		
-	}
-    
-	public boolean setUnits(int units){
 
-		byte  sc_sendBuf[] = new byte[7];
-		byte  sc_receiveBuf[] = new byte[14];
-		sc_sendBuf[0] = STX ;//stx
-		sc_sendBuf[1] = (byte)0x02;//size
-		sc_sendBuf[2] = (byte) ~ ( sc_sendBuf[1] );//~size
-		sc_sendBuf[3] = CMD_UNITS;
-		sc_sendBuf[4] = (byte)(units);  // DATA: 0x01:mg/dL  0x00:mmol/L
-		sc_sendBuf[5] = (byte) ~(sc_sendBuf[0] ^ sc_sendBuf[2] ^ sc_sendBuf[4] );
-		sc_sendBuf[6] = (byte) ~(sc_sendBuf[1] ^ sc_sendBuf[3] );	
-		
-		try {
-			sc_receiveBuf = dialogWithMeter(sc_sendBuf, 7);
-			Thread.sleep(100); // Required 
-			Log.e(TAG,"Successfully changed units: "+(byte)(units));
-	        Message msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_TOAST);
-	        Bundle bundle = new Bundle();
-	        bundle.putString(BluetoothChat.TOAST, "Units set successfully");
-	        msg.setData(bundle);
-	        mHandler.sendMessage(msg);
-			return true;
-		} catch (Exception e) {
-			Log.e(TAG,"Error : Communication error " + e.getMessage() + e.getClass());
-        	//Logger.printException(e);
-			return false;
-		}
-		
-	}    	
+        Log.e(TAG,"Serial Number" + serial);
+        return true;
+    }
 
-   
+    public boolean setUnits(int units){
+
+        byte  sc_sendBuf[] = new byte[7];
+        byte  sc_receiveBuf[] = new byte[14];
+        sc_sendBuf[0] = STX ;//stx
+        sc_sendBuf[1] = (byte)0x02;//size
+        sc_sendBuf[2] = (byte) ~ ( sc_sendBuf[1] );//~size
+        sc_sendBuf[3] = CMD_UNITS;
+        sc_sendBuf[4] = (byte)(units);  // DATA: 0x01:mg/dL  0x00:mmol/L
+        sc_sendBuf[5] = (byte) ~(sc_sendBuf[0] ^ sc_sendBuf[2] ^ sc_sendBuf[4] );
+        sc_sendBuf[6] = (byte) ~(sc_sendBuf[1] ^ sc_sendBuf[3] );
+
+        try {
+            sc_receiveBuf = dialogWithMeter(sc_sendBuf, 7);
+            Thread.sleep(100); // Required
+            Log.e(TAG,"Successfully changed units: "+(byte)(units));
+            Message msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_TOAST);
+            Bundle bundle = new Bundle();
+            bundle.putString(BluetoothChat.TOAST, "Units set successfully");
+            msg.setData(bundle);
+            mHandler.sendMessage(msg);
+            return true;
+        }
+        catch (Exception e) {
+            Log.e(TAG,"Error : Communication error " + e.getMessage() + e.getClass());
+            //Logger.printException(e);
+            return false;
+        }
+    }
 }

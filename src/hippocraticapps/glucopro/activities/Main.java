@@ -14,45 +14,41 @@ import android.app.Activity;
 import android.content.Intent;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class Main extends Activity
-{
-	private GridView gridView;
-	private ArrayList<LabeledImage> gridItems;
-	
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-		final Main thisActivity = this;
-		
-		gridItems = new ArrayList<LabeledImage>();
-		gridItems.add(new LabeledImage("Test", 			   R.drawable.glucohealth_connect, Test.class));
-		gridItems.add(new LabeledImage("Graphs 'n Charts", R.drawable.graphs_and_charts,   Charts.class));
-		gridItems.add(new LabeledImage("Information",      R.drawable.information, 		   UserInformation.class));
-		gridItems.add(new LabeledImage("Settings",         R.drawable.gear_settings,	   Settings.class));
-		
-		gridView = (GridView)findViewById(R.id.mainGridView);
-		gridView.setAdapter(new ImageAdapter(getApplicationContext(), gridItems));
-		gridView.setOnItemClickListener(new OnItemClickListener()
-		{
-			public void onItemClick(AdapterView<?> parent, View v, int position, long id)
-			{
-				String label = ((TextView)v.findViewById(R.id.gridItemLabel)).getText().toString();
-				Log.i("NEW ACTIVITY", label);
-				LabeledImage labeledImage = null;
-				for (int j = 0; j < gridItems.size(); j++)
-					if (gridItems.get(j).getLabel().equals(label))
-						labeledImage = gridItems.get(j);
-				
-				if (labeledImage == null)
-					throw new IllegalStateException("Not supposed to be null!");
-				
-				Intent intent = new Intent();
-	            intent.setClass(thisActivity, labeledImage.getActivity());
-	            startActivity(intent);
-			}
-		});
-	}
+public class Main extends Activity {
+    private GridView gridView;
+    private ArrayList<LabeledImage> gridItems;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        final Main thisActivity = this;
+
+        gridItems = new ArrayList<LabeledImage>();
+        gridItems.add(new LabeledImage("Test",             R.drawable.glucohealth_connect, Test.class));
+        gridItems.add(new LabeledImage("Graphs 'n Charts", R.drawable.graphs_and_charts,   Charts.class));
+        gridItems.add(new LabeledImage("Information",      R.drawable.information,         UserInformation.class));
+        gridItems.add(new LabeledImage("Settings",         R.drawable.gear_settings,       Settings.class));
+
+        gridView = (GridView)findViewById(R.id.mainGridView);
+        gridView.setAdapter(new ImageAdapter(getApplicationContext(), gridItems));
+        gridView.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                String label = ((TextView)v.findViewById(R.id.gridItemLabel)).getText().toString();
+                Log.i("NEW ACTIVITY", label);
+                LabeledImage labeledImage = null;
+                for (int j = 0; j < gridItems.size(); j++)
+                    if (gridItems.get(j).getLabel().equals(label))
+                        labeledImage = gridItems.get(j);
+
+                if (labeledImage == null)
+                    throw new IllegalStateException("Not supposed to be null!");
+
+                Intent intent = new Intent();
+                intent.setClass(thisActivity, labeledImage.getActivity());
+                startActivity(intent);
+            }
+        });
+    }
 }
