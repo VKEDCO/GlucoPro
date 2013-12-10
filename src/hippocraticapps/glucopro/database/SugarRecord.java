@@ -20,7 +20,7 @@ public class SugarRecord extends GlucoRecord {
 
 
 
-    public SugarRecord( int id, int shiftID, int pre, float level, long time ){
+    public SugarRecord(int id, int shiftID, int pre, float level, long time) {
         // set values
         this.id = id;
         this.shiftID = shiftID;

@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -16,8 +17,9 @@ public class ShiftRotator extends View {
     private final float TEXT_OFFSET = 10f;
     private final float SELECTOR_PROTRUSION = 70f;
     private final float SELECTOR_RADIUS = 10f;
-    private float offsetHour = 0f;
-
+    private float offsetHour_ = 0f;
+    private Canvas canvas_;
+    
 
     public ShiftRotator(Context context, AttributeSet atrs) {
         super(context, atrs);
@@ -48,6 +50,7 @@ public class ShiftRotator extends View {
 
     public void draw(Canvas canvas) {
         canvas.drawPaint(background_);
+        canvas_ = canvas;
 
         int centerX = canvas.getWidth() / 2,  centerY = canvas.getHeight() / 2;
         int r = canvas.getWidth() / 4;
@@ -67,8 +70,8 @@ public class ShiftRotator extends View {
 
         //draw offset crosshairs with little selector balls
         for (int j = 0; j <= 4; j++) {
-            float ux = (float)Math.cos(2 * Math.PI * (offsetHour + j) * 3 / 12.0f);
-            float uy = (float)Math.sin(2 * Math.PI * (offsetHour + j) * 3 / 12.0f);
+            float ux = (float)Math.cos(2 * Math.PI * (offsetHour_ + j * 3) / 12.0f);
+            float uy = (float)Math.sin(2 * Math.PI * (offsetHour_ + j * 3) / 12.0f);
             float selectorR = r + SELECTOR_PROTRUSION;
             float x = centerX + ux * selectorR, y = centerY + uy * selectorR;
             canvas.drawLine(centerX, centerY, x, y, offsetCrosshair_);
@@ -80,8 +83,14 @@ public class ShiftRotator extends View {
 
     public boolean onTouchEvent(MotionEvent me) {
         Point mouseLoc = new Point((int)me.getX(), (int)me.getY());
-
-        //todo: handle mouse events
+        
+        int centerX = canvas_.getWidth() / 2,  centerY = canvas_.getHeight() / 2;
+        float angle = (float)Math.atan2(mouseLoc.y - centerY, mouseLoc.x - centerX);        
+        offsetHour_ = (float)((angle + Math.PI) / (2 * Math.PI)) * 12f;
+        offsetHour_ = Math.round(offsetHour_ * 2) / 2f;
+        invalidate(); //postInvalidate
+        
+        Log.e("HELLO2", "" + offsetHour_);
 
         return true;
     }

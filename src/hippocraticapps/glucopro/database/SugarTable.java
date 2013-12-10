@@ -12,7 +12,7 @@ public class SugarTable implements DatabaseTable {
 
 
 
-	static SugarRecord[] peekRange( GlucoDBAdapter adptr,int maxSize ){
+	public static SugarRecord[] peekRange( GlucoDBAdapter adptr,int maxSize ){
 		//make an adapter query call to get the nth entry from the top, starting newest first
 		return adptr.getNSugarEntries(maxSize); // return array of records
 	}
