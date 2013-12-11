@@ -19,6 +19,9 @@ package hippocraticapps.glucopro;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.UUID;
 
 import android.app.Activity;
@@ -753,7 +756,17 @@ public class BluetoothChatService {
 			return false;
 		}
 		
-		Log.d(TAG,"Read " + recordsCount + " records");
+		/*int yr = record.getYear();
+		int mo = record.getMon();
+		int dy = record.getDay();
+		int hr = record.getHour();
+		int mn = record.getMin();
+		Log.d("DATE INFORMATION",yr+"/"+mo+"/"+"/"+dy+"  "+hr+":"+mn);
+		
+		GregorianCalendar gc = new GregorianCalendar(yr,mo,dy,hr,mn);
+		Log.d("READING TIME OBJECT",""+gc.getTimeInMillis());
+		
+		Log.d(TAG,"Read " + recordsCount + " records");*/
 		//mDialogHandler.sendEmptyMessage(MSG_DIALOG_PROGRESS_HIDE);
 		return true;
 	}

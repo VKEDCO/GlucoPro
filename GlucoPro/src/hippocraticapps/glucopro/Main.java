@@ -223,7 +223,7 @@ public class Main extends Activity {
                     break;
                 case BluetoothChatService.STATE_CONNECTING:
                     //mTitle.setText(R.string.title_connecting);
-                    Log.d("HANDLER","I'm Through OK.");
+                    Log.d("HANDLER","connecting");
                     break;
                 case BluetoothChatService.STATE_LISTEN:
                 case BluetoothChatService.STATE_NONE:
@@ -238,6 +238,7 @@ public class Main extends Activity {
                 // construct a string from the buffer
                 String writeMessage = new String(writeBuf);
                 mConversationArrayAdapter.add("Me:  " + writeMessage);
+                Log.d("DATA TO WRITE",writeMessage);
                 break;
             case MESSAGE_READ:
             	Log.d("HANDLER","read");
@@ -245,6 +246,7 @@ public class Main extends Activity {
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
                 mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
+                Log.d("DATA TO READ",readMessage);
                 break;
             case MESSAGE_DEVICE_NAME:
             	Log.d("HANDLER","device name");
