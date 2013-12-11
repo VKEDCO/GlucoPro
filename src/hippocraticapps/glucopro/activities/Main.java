@@ -27,6 +27,7 @@ public class Main extends Activity {
 
         gridItems = new ArrayList<LabeledImage>();
         gridItems.add(new LabeledImage("Test",             R.drawable.glucohealth_connect, Test.class));
+        gridItems.add(new LabeledImage("Meal Input",       R.drawable.meal_input,          MealInput.class));
         gridItems.add(new LabeledImage("Graphs 'n Charts", R.drawable.graphs_and_charts,   Charts.class));
         gridItems.add(new LabeledImage("Information",      R.drawable.information,         UserInformation.class));
         gridItems.add(new LabeledImage("Settings",         R.drawable.gear_settings,       Settings.class));

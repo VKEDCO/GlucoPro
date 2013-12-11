@@ -5,9 +5,19 @@
 
     <hippocraticapps.glucopro.views.ShiftRotator
         android:id="@+id/shiftRotator"
-        android:tag="Shift Viewer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-    />
+        android:tag="Shift Viewer" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/settings_label"
+        android:textSize="9pt" />
 
 </RelativeLayout>

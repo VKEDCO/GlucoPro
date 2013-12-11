@@ -9,23 +9,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Main" >
 
-    <TextView
-        android:id="@+id/recommendationText"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:padding="10dp"
-        android:text="@string/recommendation_default_text"
-        android:textAlignment="center" />
-
     <Button
         android:id="@+id/button1"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="175dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/recommendationText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="73dp"
         android:text="@string/recommendation_acknowledge" />
+
+    <TextView
+        android:id="@+id/recommendationText"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:padding="10dp"
+        android:text="@string/recommendation_default_text"
+        android:textAlignment="center"
+        android:textSize="12pt" />
 
 </RelativeLayout>

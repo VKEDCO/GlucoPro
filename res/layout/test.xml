@@ -25,28 +25,35 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/glucoHealthLoad"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="82dp"
         android:ems="10"
+        android:gravity="center"
         android:hint="@string/test_manual_glucose_level_hint"
-        android:inputType="number" />
-    
-    <Button
-        android:id="@+id/glucoHealthLoad"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_below="@+id/testTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
-        android:background="@drawable/blue_gradient"
-        android:text="@string/test_read_from_meter" />
+        android:inputType="number"
+        android:textSize="10pt" >
+
+        <requestFocus />
+    </EditText>
 
     <Button
         android:id="@+id/manualTestSubmit"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_below="@+id/testManualInput"
         android:layout_centerHorizontal="true"
-        android:text="@string/test_manual_submit" />
+        android:layout_marginTop="14dp"
+        android:text="@string/test_manual_submit"
+        android:textSize="10pt" />
+
+    <Button
+        android:id="@+id/glucoHealthLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/testTitle"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/light_gray_gradient"
+        android:text="@string/test_read_from_meter" />
 
 </RelativeLayout>

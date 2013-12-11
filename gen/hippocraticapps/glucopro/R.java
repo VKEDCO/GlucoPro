@@ -33,11 +33,12 @@ public final class R {
         public static final int graphs_and_charts=0x7f020003;
         public static final int ic_launcher=0x7f020004;
         public static final int information=0x7f020005;
-        public static final int light_blue=0x7f020006;
-        public static final int test_wallpaper=0x7f020007;
+        public static final int light_gray_gradient=0x7f020006;
+        public static final int meal_input=0x7f020007;
+        public static final int test_wallpaper=0x7f020008;
     }
     public static final class id {
-        public static final int action_settings=0x7f09001f;
+        public static final int action_settings=0x7f090022;
         public static final int btnSetUnits=0x7f09000a;
         public static final int btn_GetSN=0x7f090004;
         public static final int btn_reading=0x7f090003;
@@ -45,29 +46,32 @@ public final class R {
         public static final int button_close=0x7f090005;
         public static final int button_scan=0x7f090014;
         public static final int charts=0x7f090000;
-        public static final int discoverable=0x7f090022;
-        public static final int glucoHealthLoad=0x7f09001d;
+        public static final int discoverable=0x7f090025;
+        public static final int editText1=0x7f09001b;
+        public static final int glucoHealthLoad=0x7f090020;
         public static final int gridItemImage=0x7f090016;
         public static final int gridItemLabel=0x7f090017;
+        public static final int imageView1=0x7f090019;
         public static final int in=0x7f09000c;
-        public static final int insecure_connect_scan=0x7f090021;
+        public static final int insecure_connect_scan=0x7f090024;
         public static final int label=0x7f090018;
         public static final int linearLayout1=0x7f090002;
         public static final int linearLayout2=0x7f090006;
         public static final int linearLayout3=0x7f09000b;
         public static final int mainGridView=0x7f090015;
-        public static final int manualTestSubmit=0x7f09001e;
+        public static final int manualTestSubmit=0x7f090021;
         public static final int new_devices=0x7f090013;
         public static final int paired_devices=0x7f090011;
         public static final int progressBar1=0x7f090001;
         public static final int radio0=0x7f090008;
         public static final int radio1=0x7f090009;
         public static final int radioGroup1=0x7f090007;
-        public static final int recommendationText=0x7f090019;
-        public static final int secure_connect_scan=0x7f090020;
-        public static final int shiftRotator=0x7f09001a;
-        public static final int testManualInput=0x7f09001c;
-        public static final int testTitle=0x7f09001b;
+        public static final int recommendationText=0x7f09001c;
+        public static final int secure_connect_scan=0x7f090023;
+        public static final int shiftRotator=0x7f09001d;
+        public static final int testManualInput=0x7f09001f;
+        public static final int testTitle=0x7f09001e;
+        public static final int textView1=0x7f09001a;
         public static final int title_left_text=0x7f09000e;
         public static final int title_new_devices=0x7f090012;
         public static final int title_paired_devices=0x7f090010;
@@ -81,11 +85,12 @@ public final class R {
         public static final int device_name=0x7f030004;
         public static final int main=0x7f030005;
         public static final int main_gridcell=0x7f030006;
-        public static final int message=0x7f030007;
-        public static final int recommendation=0x7f030008;
-        public static final int settings=0x7f030009;
-        public static final int test=0x7f03000a;
-        public static final int user_information=0x7f03000b;
+        public static final int meal_input=0x7f030007;
+        public static final int message=0x7f030008;
+        public static final int recommendation=0x7f030009;
+        public static final int settings=0x7f03000a;
+        public static final int test=0x7f03000b;
+        public static final int user_information=0x7f03000c;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -103,11 +108,13 @@ public final class R {
          */
         public static final int import_button=0x7f060013;
         public static final int insecure_connect=0x7f060010;
+        public static final int meal_input_question=0x7f060015;
+        public static final int meal_input_submit=0x7f060016;
         public static final int none_found=0x7f06000b;
         public static final int none_paired=0x7f06000a;
         public static final int not_connected=0x7f060003;
-        public static final int recommendation_acknowledge=0x7f060016;
-        public static final int recommendation_default_text=0x7f060015;
+        public static final int recommendation_acknowledge=0x7f060018;
+        public static final int recommendation_default_text=0x7f060017;
         /**   DeviceListActivity 
          */
         public static final int scanning=0x7f060008;
@@ -118,15 +125,17 @@ public final class R {
         /**   BluetoothChat 
          */
         public static final int send=0x7f060002;
-        public static final int test_manual_glucose_level_hint=0x7f060019;
-        public static final int test_manual_submit=0x7f06001a;
-        public static final int test_read_from_meter=0x7f060018;
-        public static final int test_title=0x7f060017;
+        public static final int settings_label=0x7f060019;
+        public static final int test_manual_glucose_level_hint=0x7f06001c;
+        public static final int test_manual_submit=0x7f06001d;
+        public static final int test_read_from_meter=0x7f06001b;
+        public static final int test_title=0x7f06001a;
         public static final int title_connected_to=0x7f060006;
         public static final int title_connecting=0x7f060005;
         public static final int title_not_connected=0x7f060007;
         public static final int title_other_devices=0x7f06000d;
         public static final int title_paired_devices=0x7f06000c;
+        public static final int user_info_default_text=0x7f06001e;
     }
     public static final class style {
         /** 

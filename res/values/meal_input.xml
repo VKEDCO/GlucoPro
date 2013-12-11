@@ -1,0 +1,6 @@
+<resources>
+    
+    <string name="meal_input_question">How many carbohydrates were in your last meal?</string>
+    <string name="meal_input_submit">Submit</string>
+    
+</resources>

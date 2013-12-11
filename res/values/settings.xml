@@ -6,5 +6,7 @@
 	<color name="settings_text">#333333</color>
 	<color name="settings_offset_crosshair">#000000</color>
 	<color name="settings_offset_selector">#000000</color>
+	
+	<string name="settings_label">Align the day shifts to your typical daily schedule.</string>
 
 </resources>

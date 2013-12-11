@@ -13,9 +13,9 @@ import android.view.View;
 public class ShiftRotator extends View {
 
     private Paint background_, circle_, text_, offsetCrosshair_, offsetSelector_;
-    private final float TICK_SIZE   = 10f;
+    private final float TICK_SIZE   = 40f;
     private final float TEXT_OFFSET = 10f;
-    private final float SELECTOR_PROTRUSION = 70f;
+    private final float SELECTOR_PROTRUSION = 120f;
     private final float SELECTOR_RADIUS = 10f;
     private float offsetHour_ = 0f;
     private Canvas canvas_;
@@ -35,7 +35,7 @@ public class ShiftRotator extends View {
 
         text_ = new Paint();
         text_.setColor(getResources().getColor(R.color.settings_text));
-        text_.setTextSize(24f);
+        text_.setTextSize(52f);
 
         offsetCrosshair_ = new Paint();
         offsetCrosshair_.setColor(getResources().getColor(R.color.settings_offset_crosshair));
@@ -53,7 +53,7 @@ public class ShiftRotator extends View {
         canvas_ = canvas;
 
         int centerX = canvas.getWidth() / 2,  centerY = canvas.getHeight() / 2;
-        int r = canvas.getWidth() / 4;
+        int r = canvas.getWidth() / 3;
 
         //draw circle with tick marks
         canvas.drawCircle(centerX, centerY, r, circle_);
@@ -88,9 +88,7 @@ public class ShiftRotator extends View {
         float angle = (float)Math.atan2(mouseLoc.y - centerY, mouseLoc.x - centerX);        
         offsetHour_ = (float)((angle + Math.PI) / (2 * Math.PI)) * 12f;
         offsetHour_ = Math.round(offsetHour_ * 2) / 2f;
-        invalidate(); //postInvalidate
-        
-        Log.e("HELLO2", "" + offsetHour_);
+        invalidate(); //repaint the area
 
         return true;
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-	
+
+    <string name="user_info_default_text">Here are your latest statistics:</string>
 
 </resources>
