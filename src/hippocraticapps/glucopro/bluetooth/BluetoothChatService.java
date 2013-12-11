@@ -19,6 +19,9 @@ package hippocraticapps.glucopro.bluetooth;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.UUID;
 
 import android.app.Activity;
@@ -177,8 +180,9 @@ public class BluetoothChatService {
      * @param secure Socket Security type - Secure (true) , Insecure (false)
      */
     public synchronized void connect(BluetoothDevice device, boolean secure) {
+    	Log.d("ALERT!","GOT HERE!");
         if (D)
-            Log.d(TAG, "connect to: " + device);
+        	Log.d(TAG, "connect to: " + device);
 
         // Cancel any thread attempting to make a connection
         if (mState == STATE_CONNECTING) {
@@ -819,20 +823,32 @@ public class BluetoothChatService {
 
             }
             //mDialogProgress.incrementProgressBy(1);
-            mHandler.sendEmptyMessage(BluetoothChat.MESSAGE_PROGRESS);
+			mHandler.sendEmptyMessage(BluetoothChat.MESSAGE_PROGRESS);
+			
+		}
+		//closeConnection(); // TODO check return value ?
 
-        }
-        //closeConnection(); // TODO check return value ?
-
-        if ( recordsCount == 0 ) {
-            return false;
-        }
-
-        Log.d(TAG,"Read " + recordsCount + " records");
-        //mDialogHandler.sendEmptyMessage(MSG_DIALOG_PROGRESS_HIDE);
-        return true;
-    }
-
+		if ( recordsCount == 0 ) {
+			return false;
+		}
+		
+		/*int yr = record.getYear();
+		int mo = record.getMon();
+		int dy = record.getDay();
+		int hr = record.getHour();
+		int mn = record.getMin();
+		Log.d("DATE INFORMATION",yr+"/"+mo+"/"+"/"+dy+"  "+hr+":"+mn);
+		
+		GregorianCalendar gc = new GregorianCalendar(yr,mo,dy,hr,mn);
+		Log.d("READING TIME OBJECT",""+gc.getTimeInMillis());
+		
+		Log.d(TAG,"Read " + recordsCount + " records");*/
+		//mDialogHandler.sendEmptyMessage(MSG_DIALOG_PROGRESS_HIDE);
+		return true;
+	}
+	
+    
+    
     public boolean getSerial(){
         Message msg;
         Bundle bundle;

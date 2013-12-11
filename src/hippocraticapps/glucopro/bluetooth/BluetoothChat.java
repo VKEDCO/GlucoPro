@@ -380,6 +380,7 @@ public class BluetoothChat extends Activity {
                     break;
             }
         }
+        
     };
 
 
@@ -389,28 +390,36 @@ public class BluetoothChat extends Activity {
             Log.d(TAG, "onActivityResult " + resultCode);
 
         switch (requestCode) {
-            case REQUEST_CONNECT_DEVICE_SECURE:
-                // When DeviceListActivity returns with a device to connect
-                if (resultCode == Activity.RESULT_OK)
-                    connectDevice(data, true);
-                break;
-
-            case REQUEST_CONNECT_DEVICE_INSECURE:
-                // When DeviceListActivity returns with a device to connect
-                if (resultCode == Activity.RESULT_OK)
-                    connectDevice(data, false);
-                break;
-
-            case REQUEST_ENABLE_BT:
-                // When the request to enable Bluetooth returns
-                if (resultCode == Activity.RESULT_OK)
-                    setupChat(); // Bluetooth is now enabled, so set up a chat session
-                else {
-                    // User did not enable Bluetooth or an error occured
-                    Log.d(TAG, "BT not enabled");
-                    Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+	        case REQUEST_CONNECT_DEVICE_SECURE:
+	            // When DeviceListActivity returns with a device to connect
+	            if (resultCode == Activity.RESULT_OK) {
+	                connectDevice(data, true);
+	            }
+	            break;
+	            
+	        case REQUEST_CONNECT_DEVICE_INSECURE:
+	            // When DeviceListActivity returns with a device to connect
+	            if (resultCode == Activity.RESULT_OK) {
+	                connectDevice(data, false);
+	            }
+	            break;
+	            
+	        case REQUEST_ENABLE_BT:
+	            // When the request to enable Bluetooth returns
+	            if (resultCode == Activity.RESULT_OK) {
+	                // Bluetooth is now enabled, so set up a chat session
+	                setupChat();
+	            } else {
+	                // User did not enable Bluetooth or an error occured
+	                Log.d(TAG, "BT not enabled");
+	                Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
+	                finish();
+	            }
+	        	break;
+	        	
+	        case -1:
+	        	Log.d(TAG,"-1 result");
+	        	break;
         }
     }
 
