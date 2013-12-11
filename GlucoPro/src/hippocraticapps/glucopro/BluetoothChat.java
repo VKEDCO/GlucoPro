@@ -351,6 +351,7 @@ public class BluetoothChat extends Activity {
                 break;
             }
         }
+        
     };
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -55,7 +55,7 @@ public class Main extends Activity {
     private static final int REQUEST_ENABLE_BT = 3;
 
     // Layout Views
-    private TextView mTitle;
+    //private TextView mTitle;
     private ListView mConversationView;
     private EditText mOutEditText;
     private Button mSendButton;
@@ -82,7 +82,7 @@ public class Main extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chat_main);
 		
-		 mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Log.d("OnCreateStatus","Adapter Initialized");
         // If the adapter is null, then Bluetooth is not supported
         if (mBluetoothAdapter == null) {
@@ -204,7 +204,6 @@ public class Main extends Activity {
 
         // Initialize the BluetoothChatService to perform bluetooth connections
         mChatService = new BluetoothChatService(this, mHandler);
-
         // Initialize the buffer for outgoing messages
         mOutStringBuffer = new StringBuffer("");
     }
@@ -217,58 +216,71 @@ public class Main extends Activity {
                 if(D) Log.i(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
                 switch (msg.arg1) {
                 case BluetoothChatService.STATE_CONNECTED:
-                    mTitle.setText(R.string.title_connected_to);
-                    mTitle.append(mConnectedDeviceName);
+                    //mTitle.setText(R.string.title_connected_to);
+                    //mTitle.append(mConnectedDeviceName);
+                	Log.d("HANDLER","connected");
                     mConversationArrayAdapter.clear();
                     break;
                 case BluetoothChatService.STATE_CONNECTING:
-                    mTitle.setText(R.string.title_connecting);
+                    //mTitle.setText(R.string.title_connecting);
+                    Log.d("HANDLER","I'm Through OK.");
                     break;
                 case BluetoothChatService.STATE_LISTEN:
                 case BluetoothChatService.STATE_NONE:
-                    mTitle.setText(R.string.title_not_connected);
+                    //mTitle.setText(R.string.title_not_connected);
+                	Log.d("HANDLER","listening");
                     break;
                 }
                 break;
             case MESSAGE_WRITE:
+            	Log.d("HANDLER","writing");
                 byte[] writeBuf = (byte[]) msg.obj;
                 // construct a string from the buffer
                 String writeMessage = new String(writeBuf);
                 mConversationArrayAdapter.add("Me:  " + writeMessage);
                 break;
             case MESSAGE_READ:
+            	Log.d("HANDLER","read");
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
                 mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
                 break;
             case MESSAGE_DEVICE_NAME:
+            	Log.d("HANDLER","device name");
                 // save the connected device's name
                 mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
                 Toast.makeText(getApplicationContext(), "Connected to "
                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                 break;
             case MESSAGE_RESULT:
+            	Log.d("HANDLER","result");
                 //Toast.makeText(getApplicationContext(), msg.getData().getString("result"),Toast.LENGTH_SHORT).show();
                 mConversationArrayAdapter.add(msg.getData().getString("result"));
                 break;
             case MESSAGE_SN:
+            	Log.d("HANDLER","message sn and mac");
                 mConversationArrayAdapter.add("Serial Number: "+msg.getData().getString("sn"));
                 mConversationArrayAdapter.add("Mac Address: "+msg.getData().getString(DEVICE_MAC));
                 break;                
             case MESSAGE_PROGRESS_MAX:
+            	Log.d("HANDLER","progress max");
             	mProgress.setProgress(0);
             	mProgress.setMax(msg.getData().getInt("progressMax"));
                 break;    
             case MESSAGE_PROGRESS:
+            	Log.d("HANDLER","progress");
             	mProgress.incrementProgressBy(1);
                 break;    
             case MESSAGE_TOAST:
+            	Log.d("HANDLER","a toast!");
                 Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
                                Toast.LENGTH_SHORT).show();
                 break;
             }
+            
         }
+        
     };
     
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -282,6 +294,7 @@ public class Main extends Activity {
             break;
         case REQUEST_CONNECT_DEVICE_INSECURE:
             // When DeviceListActivity returns with a device to connect
+        	setupChat();
             if (resultCode == Activity.RESULT_OK) {
                 connectDevice(data, false);
             }
@@ -302,11 +315,18 @@ public class Main extends Activity {
     
     private void connectDevice(Intent data, boolean secure) {
         // Get the device MAC address
+    	Log.d("CONNECTING DEVICE","Begin Connection");
         String address = data.getExtras()
             .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+        Log.d("CONNECTING DEVICE",address);
+        Log.d("ADAPTER_STATUS",mBluetoothAdapter.getName());
         // Get the BLuetoothDevice object
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
         // Attempt to connect to the device
+        if (mChatService == null){
+        	Log.d("mChatService"," IS NULL! ");
+        	return;
+        }
         mChatService.connect(device, secure);
     }
     
