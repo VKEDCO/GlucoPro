@@ -379,6 +379,10 @@ public class BluetoothChat extends Activity {
                 Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
                 finish();
             }
+        	break;
+        case -1:
+        	Log.d(TAG,"-1 result");
+        	break;
         }
     }
 
