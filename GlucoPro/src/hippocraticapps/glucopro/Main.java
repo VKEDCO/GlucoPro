@@ -203,7 +203,7 @@ public class Main extends Activity {
         });
 
         // Initialize the BluetoothChatService to perform bluetooth connections
-        mChatService = new BluetoothChatService(this, mHandler);
+        mChatService = new BluetoothChatService(this, mHandler,adptr);
         // Initialize the buffer for outgoing messages
         mOutStringBuffer = new StringBuffer("");
     }
