@@ -16,6 +16,9 @@ package hippocraticapps.glucopro.bluetooth;
  */
 
 
+import hippocraticapps.glucopro.database.GlucoDBAdapter;
+import hippocraticapps.glucopro.database.SugarRecord;
+import hippocraticapps.glucopro.database.SugarTable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -99,20 +102,26 @@ public class BluetoothChatService {
     public static final int DIALOG_PROGRESS = 2;
 
     private Activity mActivity;
+    private GlucoDBAdapter mAdptr;
     private int connectState;
     private String mac;
     //private ProgressDialog mDialogProgress;
-
+    
+    SugarRecord sugarR;
+    SugarTable sTable;
     /**
      * Constructor. Prepares a new BluetoothChat session.
      * @param context  The UI Activity Context
      * @param handler  A Handler to send messages back to the UI Activity
      */
-    public BluetoothChatService(Context context, Handler handler) {
+    public BluetoothChatService(Context context, Handler handler, GlucoDBAdapter adptr) {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         mState = STATE_NONE;
         mHandler = handler;
         mActivity = (Activity) context;
+        
+        mAdptr = adptr;
+        sTable = new SugarTable();
     }
 
 
@@ -817,6 +826,30 @@ public class BluetoothChatService {
                     //if(currentSync.equals(lastSync)){
                     //  break;
                     //}
+                    
+                    int yr = 2000+record.getYear();
+                    int mo = record.getMon();
+                    int dy = record.getDay();
+                    int hr = record.getHour();
+                    int mn = record.getMin();
+                    Log.d("DATE INFORMATION",yr+"/"+mo+"/"+dy+"  "+9+":"+mn);
+                    
+                    GregorianCalendar gc = new GregorianCalendar(yr,mo,dy,hr,mn,0);
+                             
+                    int sugarLevel = record.getResult();
+                    int temp = record.getTemp();
+                    int pre = record.getEvent();
+                    Log.d("READING TIME OBJECT",""+gc.getTimeInMillis());
+                    Log.d("Sugar Level: ",""+sugarLevel);
+                    Log.d("Event?: ",""+pre);
+                    if (record.getEvent() == 8)
+                    	pre = 0;
+                    else
+                    	pre = 1;
+                    
+                    sugarR = new SugarRecord( 0, 1, pre, (float)sugarLevel, gc.getTimeInMillis()/1000 );
+                    sTable.insert(mAdptr,sugarR);
+                    Log.d(TAG,"Read " + recordsCount + " records");
 
                 }
                 Thread.sleep(100); /* Required -- ori. 55 */

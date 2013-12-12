@@ -54,6 +54,7 @@
         android:layout_below="@+id/testTitle"
         android:layout_marginTop="55dp"
         android:background="@drawable/light_gray_gradient"
-        android:text="@string/test_read_from_meter" />
+        android:text="@string/test_read_from_meter" 
+        android:onClick="launchGlucoBridge"/>
 
 </RelativeLayout>

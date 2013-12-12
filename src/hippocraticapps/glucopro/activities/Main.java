@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import hippocraticapps.glucopro.R;
 import hippocraticapps.glucopro.adapters.ImageAdapter;
 import hippocraticapps.glucopro.adapters.LabeledImage;
+import hippocraticapps.glucopro.database.GlucoDBAdapter;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,8 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         final Main thisActivity = this;
+        
+        GlucoDBAdapter.getInstance(getApplicationContext());
 
         gridItems = new ArrayList<LabeledImage>();
         gridItems.add(new LabeledImage("Test",             R.drawable.glucohealth_connect, Test.class));

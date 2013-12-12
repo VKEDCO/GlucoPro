@@ -10,7 +10,7 @@
     tools:context=".Main" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/recommendation_ok"
         android:layout_width="175dp"
         android:layout_height="75dp"
         android:layout_below="@+id/recommendationText"
