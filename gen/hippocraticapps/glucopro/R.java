@@ -23,8 +23,8 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
         public static final int blue_gradient=0x7f020000;
@@ -38,47 +38,49 @@ public final class R {
         public static final int test_wallpaper=0x7f020008;
     }
     public static final class id {
-        public static final int action_settings=0x7f090025;
-        public static final int btnSetUnits=0x7f09000a;
-        public static final int btn_GetSN=0x7f090004;
-        public static final int btn_reading=0x7f090003;
-        public static final int button1=0x7f09000d;
-        public static final int button_close=0x7f090005;
-        public static final int button_scan=0x7f090014;
+        public static final int action_settings=0x7f090027;
+        public static final int btnSetUnits=0x7f09000c;
+        public static final int btn_GetSN=0x7f090006;
+        public static final int btn_reading=0x7f090005;
+        public static final int button1=0x7f09000f;
+        public static final int button_close=0x7f090007;
+        public static final int button_scan=0x7f090016;
         public static final int charts=0x7f090000;
-        public static final int discoverable=0x7f090028;
-        public static final int glucoHealthLoad=0x7f090023;
-        public static final int gridItemImage=0x7f090016;
-        public static final int gridItemLabel=0x7f090017;
-        public static final int in=0x7f09000c;
-        public static final int insecure_connect_scan=0x7f090027;
-        public static final int label=0x7f090018;
-        public static final int linearLayout1=0x7f090002;
-        public static final int linearLayout2=0x7f090006;
-        public static final int linearLayout3=0x7f09000b;
-        public static final int mainGridView=0x7f090015;
-        public static final int manualTestSubmit=0x7f090024;
-        public static final int meal_input_button=0x7f09001c;
-        public static final int meal_input_image=0x7f090019;
-        public static final int meal_input_input=0x7f09001b;
-        public static final int meal_input_label=0x7f09001a;
-        public static final int new_devices=0x7f090013;
-        public static final int paired_devices=0x7f090011;
-        public static final int progressBar1=0x7f090001;
-        public static final int radio0=0x7f090008;
-        public static final int radio1=0x7f090009;
-        public static final int radioGroup1=0x7f090007;
-        public static final int recommendationText=0x7f09001e;
-        public static final int recommendation_ok=0x7f09001d;
-        public static final int secure_connect_scan=0x7f090026;
-        public static final int shiftRotator=0x7f09001f;
-        public static final int testManualInput=0x7f090022;
-        public static final int testTitle=0x7f090021;
-        public static final int textView1=0x7f090020;
-        public static final int title_left_text=0x7f09000e;
-        public static final int title_new_devices=0x7f090012;
-        public static final int title_paired_devices=0x7f090010;
-        public static final int title_right_text=0x7f09000f;
+        public static final int charts_label=0x7f090001;
+        public static final int charts_xaxis_label=0x7f090002;
+        public static final int discoverable=0x7f09002a;
+        public static final int glucoHealthLoad=0x7f090025;
+        public static final int gridItemImage=0x7f090018;
+        public static final int gridItemLabel=0x7f090019;
+        public static final int in=0x7f09000e;
+        public static final int insecure_connect_scan=0x7f090029;
+        public static final int label=0x7f09001a;
+        public static final int linearLayout1=0x7f090004;
+        public static final int linearLayout2=0x7f090008;
+        public static final int linearLayout3=0x7f09000d;
+        public static final int mainGridView=0x7f090017;
+        public static final int manualTestSubmit=0x7f090026;
+        public static final int meal_input_button=0x7f09001e;
+        public static final int meal_input_image=0x7f09001b;
+        public static final int meal_input_input=0x7f09001d;
+        public static final int meal_input_label=0x7f09001c;
+        public static final int new_devices=0x7f090015;
+        public static final int paired_devices=0x7f090013;
+        public static final int progressBar1=0x7f090003;
+        public static final int radio0=0x7f09000a;
+        public static final int radio1=0x7f09000b;
+        public static final int radioGroup1=0x7f090009;
+        public static final int recommendationText=0x7f090020;
+        public static final int recommendation_ok=0x7f09001f;
+        public static final int secure_connect_scan=0x7f090028;
+        public static final int settings_text=0x7f090022;
+        public static final int shiftRotator=0x7f090021;
+        public static final int testManualInput=0x7f090024;
+        public static final int testTitle=0x7f090023;
+        public static final int title_left_text=0x7f090010;
+        public static final int title_new_devices=0x7f090014;
+        public static final int title_paired_devices=0x7f090012;
+        public static final int title_right_text=0x7f090011;
     }
     public static final class layout {
         public static final int charts=0x7f030000;
@@ -100,45 +102,46 @@ public final class R {
         public static final int option_menu=0x7f080001;
     }
     public static final class string {
-        public static final int action_settings=0x7f060001;
-        public static final int app_name=0x7f060000;
-        public static final int bt_not_enabled_leaving=0x7f060004;
-        public static final int button_scan=0x7f06000e;
-        public static final int disconnect=0x7f060012;
-        public static final int discoverable=0x7f060011;
-        public static final int hello_world=0x7f060014;
+        public static final int action_settings=0x7f040002;
+        public static final int app_name=0x7f040001;
+        public static final int bt_not_enabled_leaving=0x7f040005;
+        public static final int button_scan=0x7f04000f;
+        public static final int charts_default_label=0x7f040000;
+        public static final int disconnect=0x7f040013;
+        public static final int discoverable=0x7f040012;
+        public static final int hello_world=0x7f040015;
         /**  Main Activity 
          */
-        public static final int import_button=0x7f060013;
-        public static final int insecure_connect=0x7f060010;
-        public static final int meal_input_question=0x7f060015;
-        public static final int meal_input_submit=0x7f060016;
-        public static final int none_found=0x7f06000b;
-        public static final int none_paired=0x7f06000a;
-        public static final int not_connected=0x7f060003;
-        public static final int recommendation_acknowledge=0x7f060018;
-        public static final int recommendation_default_text=0x7f060017;
+        public static final int import_button=0x7f040014;
+        public static final int insecure_connect=0x7f040011;
+        public static final int meal_input_question=0x7f040016;
+        public static final int meal_input_submit=0x7f040017;
+        public static final int none_found=0x7f04000c;
+        public static final int none_paired=0x7f04000b;
+        public static final int not_connected=0x7f040004;
+        public static final int recommendation_acknowledge=0x7f040019;
+        public static final int recommendation_default_text=0x7f040018;
         /**   DeviceListActivity 
          */
-        public static final int scanning=0x7f060008;
+        public static final int scanning=0x7f040009;
         /**  Options Menu 
          */
-        public static final int secure_connect=0x7f06000f;
-        public static final int select_device=0x7f060009;
+        public static final int secure_connect=0x7f040010;
+        public static final int select_device=0x7f04000a;
         /**   BluetoothChat 
          */
-        public static final int send=0x7f060002;
-        public static final int settings_label=0x7f060019;
-        public static final int test_manual_glucose_level_hint=0x7f06001c;
-        public static final int test_manual_submit=0x7f06001d;
-        public static final int test_read_from_meter=0x7f06001b;
-        public static final int test_title=0x7f06001a;
-        public static final int title_connected_to=0x7f060006;
-        public static final int title_connecting=0x7f060005;
-        public static final int title_not_connected=0x7f060007;
-        public static final int title_other_devices=0x7f06000d;
-        public static final int title_paired_devices=0x7f06000c;
-        public static final int user_info_default_text=0x7f06001e;
+        public static final int send=0x7f040003;
+        public static final int settings_label=0x7f04001a;
+        public static final int test_manual_glucose_level_hint=0x7f04001d;
+        public static final int test_manual_submit=0x7f04001e;
+        public static final int test_read_from_meter=0x7f04001c;
+        public static final int test_title=0x7f04001b;
+        public static final int title_connected_to=0x7f040007;
+        public static final int title_connecting=0x7f040006;
+        public static final int title_not_connected=0x7f040008;
+        public static final int title_other_devices=0x7f04000e;
+        public static final int title_paired_devices=0x7f04000d;
+        public static final int user_info_default_text=0x7f04001f;
     }
     public static final class style {
         /** 
@@ -153,7 +156,7 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f050000;
-        public static final int AppTheme=0x7f050001;
+        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppTheme=0x7f060001;
     }
 }

@@ -10,7 +10,7 @@
         android:tag="Shift Viewer" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/settings_text"
         android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

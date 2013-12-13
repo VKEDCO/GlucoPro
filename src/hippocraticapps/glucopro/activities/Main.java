@@ -13,6 +13,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Main extends Activity {
@@ -54,5 +55,8 @@ public class Main extends Activity {
                 startActivity(intent);
             }
         });
+        
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
     }
 }
